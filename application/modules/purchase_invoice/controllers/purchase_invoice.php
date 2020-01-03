@@ -74,6 +74,12 @@ class purchase_invoice extends MX_Controller
             $data['loading'] = $row->loading;
             $data['market_fees'] = $row->market_fees;
             $data['other_expense'] = $row->other_expense;
+            $data['commission_less'] = $row->commission_less;
+            $data['labour_less'] = $row->labour_less;
+            $data['brokerage_less'] = $row->brokerage_less;
+            $data['loading_less'] = $row->loading_less;
+            $data['market_fees_less'] = $row->market_fees_less;
+            $data['other_expense_less'] = $row->other_expense_less;
             $data['change'] = $row->change;
             $data['cash_received'] = $row->cash_received;
             $data['remaining'] = $row->remaining;
@@ -105,6 +111,12 @@ class purchase_invoice extends MX_Controller
         $data['loading'] = $this->input->post('loading');
         $data['market_fees'] = $this->input->post('market_fees');
         $data['other_expense'] = $this->input->post('other_expense');
+        $data['commission_less'] = $this->input->post('commission_less');
+        $data['labour_less'] = $this->input->post('labour_less');
+        $data['brokerage_less'] = $this->input->post('brokerage_less');
+        $data['loading_less'] = $this->input->post('loading_less');
+        $data['market_fees_less'] = $this->input->post('market_fees_less');
+        $data['other_expense_less'] = $this->input->post('other_expense_less');
         $data['total_payable'] = $this->input->post('total_pay');
         $data['discount'] = $this->input->post('discount');
         $data['grand_total'] = $this->input->post('net_amount');
@@ -203,22 +215,22 @@ class purchase_invoice extends MX_Controller
         if(isset($product) && !empty($product)){
             $productData = explode(",",$product);
             $product_id = $productData[0];
-            $purchase_price = $productData[2];
         }
         $where['id'] = $product_id;
         $arr_product = Modules::run('product/_get_by_arr_id',$where)->result_array();
         $html='';
         if (isset($arr_product) && !empty($arr_product)) {
             foreach ($arr_product as $key => $value) {
+                $purchase_price = ($qty/$value['scale'])*$value['purchase_price'];
                 $html.='<tr>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="purchase_product[]" value="'.$value['id'].','.$value['name'].' - '.$value['p_c_name'].'"></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="purchase_price[]" value='.$value['purchase_price'].'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" type="number" readonly name="purchase_qty[]" value='.$qty.'></td>';
-                $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="purchase_amount[]" value='.$qty*$value['purchase_price'].'></td>';
-                $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$qty*$value['purchase_price'].'><i class="fa fa-remove"  title="Delete Item"></i></a></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="purchase_amount[]" value='.$purchase_price.'></td>';
+                $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$purchase_price.'><i class="fa fa-remove"  title="Delete Item"></i></a></td>';
                 $html.='</tr>';
             }
-            $total = $totalIn + ($qty*$purchase_price);
+            $total = $totalIn + $purchase_price;
         }
         $result_array = [$html,$total];
         echo json_encode($result_array);

@@ -31,37 +31,37 @@ define('DIR_WRITE_MODE', 0777);
 ////////////////// ADMIN ///////////////
 if($_SERVER['HTTP_HOST'] == 'ds-pc' || $_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '192.168.100.13'){
 	// ************** FOR LOCAL SERVER
-	define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/');
-	define('HTTPS_BASE_URL', 'https://'.$_SERVER['HTTP_HOST'].'/pos_xpert/');
-	define('BASE_URL_NEWS_LISTING', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/front/');
-	define('FOOTER_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/template/');
-	define('IMAGE_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/uploads/');
-	define('CAPTCHA_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/captcha/');
-	define('ADMIN_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/admin/');
-	define('STATIC_ADMIN_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/admin/theme1/css/');
-	define('STATIC_ADMIN_JS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/admin/theme1/js/');
-	define('STATIC_ADMIN_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/admin/theme1/images/');
+	define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/');
+	define('HTTPS_BASE_URL', 'https://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/');
+	define('BASE_URL_NEWS_LISTING', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/front/');
+	define('FOOTER_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/template/');
+	define('IMAGE_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/uploads/');
+	define('CAPTCHA_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/captcha/');
+	define('ADMIN_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/admin/');
+	define('STATIC_ADMIN_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/admin/theme1/css/');
+	define('STATIC_ADMIN_JS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/admin/theme1/js/');
+	define('STATIC_ADMIN_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/admin/theme1/images/');
 	///////////////////FRONT///////////////////////////////
-	define('STATIC_FRONT_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/front/pos_xpert/css/');
-	define('STATIC_FRONT_JS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/front/pos_xpert/js/');
-	define('STATIC_FRONT_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/front/pos_xpert/images/');
+	define('STATIC_FRONT_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/front/warehouse_xpert/css/');
+	define('STATIC_FRONT_JS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/front/warehouse_xpert/js/');
+	define('STATIC_FRONT_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/front/warehouse_xpert/images/');
 }
 else{
 	// ************** FOR LIVE SERVER
-	define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/');
-	define('HTTPS_BASE_URL', 'https://'.$_SERVER['HTTP_HOST'].'/pos_xpert/');
-	define('BASE_URL_NEWS_LISTING', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/front/');
-	define('FOOTER_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/template/');
-	define('CAPTCHA_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/captcha/');
-	define('IMAGE_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/uploads/');
-	define('ADMIN_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/admin/');
-	define('STATIC_ADMIN_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/admin/theme1/css/');
-	define('STATIC_ADMIN_JS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/admin/theme1/js/');
-	define('STATIC_ADMIN_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/admin/theme1/images/');
-	define('STATIC_FRONT_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/front/pos_xpert/css/');
-	define('STATIC_FRONT_JS', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/front/pos_xpert/js/');
-	define('STATIC_FRONT_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert/static/front/pos_xpert/images/');
-	define('STATIC_FRONT_NOTIFICATION', '../pos_xpert/static/front/pos_xpert/notification/');
+	define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/');
+	define('HTTPS_BASE_URL', 'https://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/');
+	define('BASE_URL_NEWS_LISTING', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/front/');
+	define('FOOTER_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/template/');
+	define('CAPTCHA_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/captcha/');
+	define('IMAGE_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/uploads/');
+	define('ADMIN_BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/admin/');
+	define('STATIC_ADMIN_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/admin/theme1/css/');
+	define('STATIC_ADMIN_JS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/admin/theme1/js/');
+	define('STATIC_ADMIN_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/admin/theme1/images/');
+	define('STATIC_FRONT_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/front/warehouse_xpert/css/');
+	define('STATIC_FRONT_JS', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/front/warehouse_xpert/js/');
+	define('STATIC_FRONT_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert/static/front/warehouse_xpert/images/');
+	define('STATIC_FRONT_NOTIFICATION', '../warehouse_xpert/static/front/warehouse_xpert/notification/');
 
 	// define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/');
 	// define('HTTPS_BASE_URL', 'https://'.$_SERVER['HTTP_HOST'].'/');
@@ -73,9 +73,9 @@ else{
 	// define('STATIC_ADMIN_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/static/admin/theme1/css/');
 	// define('STATIC_ADMIN_JS', 'http://'.$_SERVER['HTTP_HOST'].'/static/admin/theme1/js/');
 	// define('STATIC_ADMIN_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/static/admin/theme1/images/');
-	// define('STATIC_FRONT_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/static/front/pos_xpert/css/');
-	// define('STATIC_FRONT_JS', 'http://'.$_SERVER['HTTP_HOST'].'/static/front/pos_xpert/js/');
-	// define('STATIC_FRONT_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/static/front/pos_xpert/images/');
+	// define('STATIC_FRONT_CSS', 'http://'.$_SERVER['HTTP_HOST'].'/static/front/warehouse_xpert/css/');
+	// define('STATIC_FRONT_JS', 'http://'.$_SERVER['HTTP_HOST'].'/static/front/warehouse_xpert/js/');
+	// define('STATIC_FRONT_IMAGE', 'http://'.$_SERVER['HTTP_HOST'].'/static/front/warehouse_xpert/images/');
 }
 
 define('ACTUAL_CATAGORIES_IMAGE_PATH', 'uploads/catagories/actual_images/');
@@ -83,10 +83,10 @@ define('LARGE_CATAGORIES_IMAGE_PATH', 'uploads/catagories/large_images/');
 define('MEDIUM_CATAGORIES_IMAGE_PATH', 'uploads/catagories/medium_images/');
 define('SMALL_CATAGORIES_IMAGE_PATH', 'uploads/catagories/small_images/');
 
-define('ACTUAL_ADDPOST_IMAGE_PATH', 'uploads/add_post/actual_images/');
-define('LARGE_ADDPOST_IMAGE_PATH', 'uploads/add_post/large_images/');
-define('MEDIUM_ADDPOST_IMAGE_PATH', 'http://localhost/pos_xpert/uploads/add_post/medium_images/');
-define('SMALL_ADDPOST_IMAGE_PATH', 'uploads/add_post/small_images/');
+define('ACTUAL_ADDwarehouseT_IMAGE_PATH', 'uploads/add_warehouset/actual_images/');
+define('LARGE_ADDwarehouseT_IMAGE_PATH', 'uploads/add_warehouset/large_images/');
+define('MEDIUM_ADDwarehouseT_IMAGE_PATH', 'http://localhost/warehouse_xpert/uploads/add_warehouset/medium_images/');
+define('SMALL_ADDwarehouseT_IMAGE_PATH', 'uploads/add_warehouset/small_images/');
 
 define('ACTUAL_ITEMS_IMAGE_PATH', 'uploads/items/actual_images/');
 define('LARGE_ITEMS_IMAGE_PATH', 'uploads/items/large_images/');
@@ -132,11 +132,11 @@ define('CURRENCY_BOX',9);
 define('MILEAGE_BOX',10);
 define('CC_BOX',11);
 ////////////////// Pagination constants ///////////////
-define('PRE_POST',0);
-define('FREE_POST',1);
-define('PAID_POST',2);
-define('EXPIRED_POST',3);
-define('REJECTED_POST',4);
+define('PRE_warehouseT',0);
+define('FREE_warehouseT',1);
+define('PAID_warehouseT',2);
+define('EXPIRED_warehouseT',3);
+define('REJECTED_warehouseT',4);
 
 define('UN_PUBLISHED',0);
 define('PUBLISHED',1);

@@ -60,6 +60,7 @@ class Product extends MX_Controller
             $data['remarks'] = $row->remarks;
             $data['sale_price'] = $row->sale_price;
             $data['purchase_price'] = $row->purchase_price;
+            $data['scale'] = $row->scale;
             $data['sale_discount'] = $row->sale_discount;
             $data['stock'] = $row->stock;
             $data['status'] = $row->status;
@@ -95,6 +96,7 @@ class Product extends MX_Controller
         $data['sale_price'] = $this->input->post('sale_price');
         $data['purchase_price'] = $this->input->post('purchase_price');
         $data['stock'] = $this->input->post('stock');
+        $data['scale'] = $this->input->post('scale');
 
         $user_data = $this->session->userdata('user_data');
         $data['org_id'] = $user_data['user_id'];

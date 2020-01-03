@@ -16,7 +16,7 @@
 */
 
 // ************** FOR LOCAL SERVER
-$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/pos_xpert';
+$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/warehouse_xpert';
 $config_email['protocol'] = 'smtp';
 $config_email['mailpath'] = '/usr/sbin/sendmail';
 $config_email['charset'] = 'iso-8859-1';

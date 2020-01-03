@@ -81,6 +81,12 @@ class sale_invoice extends MX_Controller
             $data['loading'] = $row->loading;
             $data['market_fees'] = $row->market_fees;
             $data['other_expense'] = $row->other_expense;
+            $data['commission_less'] = $row->commission_less;
+            $data['labour_less'] = $row->labour_less;
+            $data['brokerage_less'] = $row->brokerage_less;
+            $data['loading_less'] = $row->loading_less;
+            $data['market_fees_less'] = $row->market_fees_less;
+            $data['other_expense_less'] = $row->other_expense_less;
             $data['change'] = $row->change;
             $data['cash_received'] = $row->cash_received;
             $data['grand_total'] = $row->grand_total;
@@ -115,6 +121,12 @@ class sale_invoice extends MX_Controller
         $data['loading'] = $this->input->post('loading');
         $data['market_fees'] = $this->input->post('market_fees');
         $data['other_expense'] = $this->input->post('other_expense');
+        $data['commission_less'] = $this->input->post('commission_less');
+        $data['labour_less'] = $this->input->post('labour_less');
+        $data['brokerage_less'] = $this->input->post('brokerage_less');
+        $data['loading_less'] = $this->input->post('loading_less');
+        $data['market_fees_less'] = $this->input->post('market_fees_less');
+        $data['other_expense_less'] = $this->input->post('other_expense_less');
         $data['total_payable'] = $this->input->post('total_pay');
         $data['discount'] = $this->input->post('discount');
         $data['grand_total'] = $this->input->post('net_amount');
@@ -191,8 +203,6 @@ class sale_invoice extends MX_Controller
                     $data['qty'] = $sale_qty[$counter];
                     $data['amount'] = $sale_amount[$counter];
                     $data['org_id'] = $org_id;
-
-
                     $data2['stock'] = $value1['stock'] - $sale_qty[$counter];
                     $rows = $this->_update_product_stock($data2,$org_id,$value1['id']);
                 }
@@ -214,28 +224,23 @@ class sale_invoice extends MX_Controller
         if(isset($product) && !empty($product)){
             $productData = explode(",",$product);
             $product_id = $productData[0];
-            $sale_price = $productData[2];
         }
         $where['id'] = $product_id;
         $arr_product = Modules::run('product/_get_by_arr_id',$where)->result_array();
         $html='';
         $i = 0;
         if (isset($arr_product) && !empty($arr_product)) {
-            if ($arr_product[0]['stock'] >= $qty) {
-                foreach ($arr_product as $key => $value) {
-                    $html.='<tr>';
-                    $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_product[]" value="'.$value['id'].','.$value['name'].' - '.$value['p_c_name'].'"></td>';
-                    $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_price[]" value='.$value['sale_price'].'></td>';
-                    $html.='<td><input style="text-align: center;" class="form-control" type="number"  name="sale_qty" value='.$qty.'></td>';
-                    $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="sale_amount[]" value='.$qty*$value['sale_price'].'></td>';
-                    $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$qty*$value['sale_price'].'><i class="fa fa-remove"  title="Delete Item" style="color:red;"></i></a></td>';
-                    $html.='</tr>';
-                }
-                $total = $totalIn + ($qty*$sale_price);
+            foreach ($arr_product as $key => $value) {
+                $sale_price = ($qty/$value['scale'])*$value['sale_price'];
+                $html.='<tr>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_product[]" value="'.$value['id'].','.$value['name'].' - '.$value['p_c_name'].'"></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_price[]" value='.$value['sale_price'].'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" type="number"  name="sale_qty[]" value='.$qty.'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="sale_amount[]" value='.$sale_price.'></td>';
+                $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$sale_price.'><i class="fa fa-remove"  title="Delete Item" style="color:red;"></i></a></td>';
+                $html.='</tr>';
             }
-            else{
-                $total = $totalIn;
-            }
+            $total = $totalIn + $sale_price;
         }
         $result_array = [$html,$total];
         echo json_encode($result_array);
