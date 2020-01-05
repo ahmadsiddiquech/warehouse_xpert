@@ -193,106 +193,149 @@ div.ridge {
                       </div>
                     </div>
                     <div class="row" style="padding-top: 15px;">
-                      <div class="col-md-1"></div>
-                      <div class="col-md-5 ridge">
+                      <div class="col-md-6 ridge">
                         <p>Add Expense</p>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Commission</h4>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <input type="number" name="commission" id="commission" class="form-control" style="text-align: center;" tabindex="7">
                           </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Soothly</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="soothly" id="soothly" class="form-control" style="text-align: center;" tabindex="7">
+                          </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Labour</h4>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <input type="number" name="labour" id="labour" class="form-control" style="text-align: center;" tabindex="8">
                           </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Bardana</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="bardana" id="bardana" class="form-control" style="text-align: center;" tabindex="8">
+                          </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Brokerage</h4>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <input type="number" name="brokerage" id="brokerage" class="form-control" style="text-align: center;" tabindex="9">
                           </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Freight</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="freight" id="freight" class="form-control" style="text-align: center;" tabindex="9">
+                          </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
-                            <h4 style="text-align: right;">Loading/Unloading</h4>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Loading</h4>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <input type="number" name="loading" id="loading" class="form-control" style="text-align: center;" tabindex="10">
                           </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Dami</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="dami" id="dami" class="form-control" style="text-align: center;" tabindex="10">
+                          </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Market Fees</h4>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <input type="number" name="market_fees" id="market_fees" class="form-control" style="text-align: center;" tabindex="11">
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Other Expense</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="other_expense" id="other_expense" class="form-control" style="text-align: center;" tabindex="12">
+                          <div class="col-md-3">
+                            <input type="number" name="other_expense" id="other_expense" class="form-control" style="text-align: center;" tabindex="11">
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-5 ridge">
+                      <div class="col-md-6 ridge">
                         <p>Less Expense</p>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Commission</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="commission_less" id="commission_less" class="form-control" style="text-align: center;" tabindex="13">
+                          <div class="col-md-3">
+                            <input type="number" name="commission_less" id="commission_less" class="form-control" style="text-align: center;" tabindex="12">
+                          </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Soothly</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="soothly_less" id="soothly_less" class="form-control" style="text-align: center;" tabindex="12">
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Labour</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="labour_less" id="labour_less" class="form-control" style="text-align: center;" tabindex="14">
+                          <div class="col-md-3">
+                            <input type="number" name="labour_less" id="labour_less" class="form-control" style="text-align: center;" tabindex="13">
+                          </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Bardana</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="bardana_less" id="bardana_less" class="form-control" style="text-align: center;" tabindex="13">
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Brokerage</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="brokerage_less" id="brokerage_less" class="form-control" style="text-align: center;" tabindex="15">
+                          <div class="col-md-3">
+                            <input type="number" name="brokerage_less" id="brokerage_less" class="form-control" style="text-align: center;" tabindex="14">
+                          </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Freight</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="freight_less" id="freight_less" class="form-control" style="text-align: center;" tabindex="14">
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
-                            <h4 style="text-align: right;">Loading/Unloading</h4>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Loading</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="loading_less" id="loading_less" class="form-control" style="text-align: center;" tabindex="16">
+                          <div class="col-md-3">
+                            <input type="number" name="loading_less" id="loading_less" class="form-control" style="text-align: center;" tabindex="15">
+                          </div>
+                          <div class="col-md-3">
+                            <h4 style="text-align: right;">Dami</h4>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="number" name="dami_less" id="dami_less" class="form-control" style="text-align: center;" tabindex="15">
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Market Fees</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="market_fees_less" id="market_fees_less" class="form-control" style="text-align: center;" tabindex="17">
+                          <div class="col-md-3">
+                            <input type="number" name="market_fees_less" id="market_fees_less" class="form-control" style="text-align: center;" tabindex="16">
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4 style="text-align: right;">Other Expense</h4>
                           </div>
-                          <div class="col-md-6">
-                            <input type="number" name="other_expense_less" id="other_expense_less" class="form-control" style="text-align: center;" tabindex="18">
+                          <div class="col-md-3">
+                            <input type="number" name="other_expense_less" id="other_expense_less" class="form-control" style="text-align: center;" tabindex="16">
                           </div>
                         </div>
                       </div>
@@ -437,7 +480,7 @@ $('input[name=discount]').focusout(function() {
     $('input[name=remaining]').val(net);
 });
 
-$('input[id=commission],input[id=labour],input[id=brokerage],input[id=loading],input[id=market_fees],input[id=other_expense]').focusout(function() {
+$('input[id=commission],input[id=labour],input[id=brokerage],input[id=loading],input[id=market_fees],input[id=other_expense],input[id=soothly],input[id=bardana],input[id=freight],input[id=dami]').focusout(function() {
     var net_amount = parseInt($('input[name=net_amount]').val());
     var commission = $(this).val();
     if (commission == '') {
@@ -449,7 +492,7 @@ $('input[id=commission],input[id=labour],input[id=brokerage],input[id=loading],i
     $('input[name=remaining]').val(total);
 });
 
-$('input[id=commission_less],input[id=labour_less],input[id=brokerage_less],input[id=loading_less],input[id=market_fees_less],input[id=other_expense_less]').focusout(function() {
+$('input[id=commission_less],input[id=labour_less],input[id=brokerage_less],input[id=loading_less],input[id=market_fees_less],input[id=other_expense_less],input[id=soothly_less],input[id=bardana_less],input[id=freight_less],input[id=dami_less]').focusout(function() {
     var net_amount = parseInt($('input[name=net_amount]').val());
     var commission = $(this).val();
     if (commission == '') {

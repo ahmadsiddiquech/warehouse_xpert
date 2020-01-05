@@ -81,12 +81,20 @@ class sale_invoice extends MX_Controller
             $data['loading'] = $row->loading;
             $data['market_fees'] = $row->market_fees;
             $data['other_expense'] = $row->other_expense;
+            $data['soothly'] = $row->soothly;
+            $data['bardana'] = $row->bardana;
+            $data['freight'] = $row->freight;
+            $data['dami'] = $row->dami;
             $data['commission_less'] = $row->commission_less;
             $data['labour_less'] = $row->labour_less;
             $data['brokerage_less'] = $row->brokerage_less;
             $data['loading_less'] = $row->loading_less;
             $data['market_fees_less'] = $row->market_fees_less;
             $data['other_expense_less'] = $row->other_expense_less;
+            $data['soothly_less'] = $row->soothly_less;
+            $data['bardana_less'] = $row->bardana_less;
+            $data['freight_less'] = $row->freight_less;
+            $data['dami_less'] = $row->dami_less;
             $data['change'] = $row->change;
             $data['cash_received'] = $row->cash_received;
             $data['grand_total'] = $row->grand_total;
@@ -121,6 +129,14 @@ class sale_invoice extends MX_Controller
         $data['loading'] = $this->input->post('loading');
         $data['market_fees'] = $this->input->post('market_fees');
         $data['other_expense'] = $this->input->post('other_expense');
+        $data['soothly'] = $this->input->post('soothly');
+        $data['bardana'] = $this->input->post('bardana');
+        $data['freight'] = $this->input->post('freight');
+        $data['dami'] = $this->input->post('dami');
+        $data['soothly_less'] = $this->input->post('soothly_less');
+        $data['bardana_less'] = $this->input->post('bardana_less');
+        $data['freight_less'] = $this->input->post('freight_less');
+        $data['dami_less'] = $this->input->post('dami_less');
         $data['commission_less'] = $this->input->post('commission_less');
         $data['labour_less'] = $this->input->post('labour_less');
         $data['brokerage_less'] = $this->input->post('brokerage_less');
@@ -168,6 +184,16 @@ class sale_invoice extends MX_Controller
                 $this->_update_customer_amount($data['customer_id'],$data2,$org_id);
             }
 
+            if ($data['change'] == 0) {
+                    $data3['paid'] = $data['cash_received'];
+                }
+                elseif ($data['change'] > 0) {
+                    $data3['paid'] = $data['grand_total'];
+            }
+
+            $cash_in_hand = Modules::run('account/_get_cash_in_hand')->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data3['paid'];
+            Modules::run('account/_update_cash_in_hand',$cash);
             $this->insert_product($sale_invoice_id,$org_id);
         }
         $this->session->set_flashdata('message', 'sale_invoice'.' '.DATA_SAVED);

@@ -99,46 +99,39 @@
     <td colspan="2" style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black"><b>Less Expense</b></td>
   </tr>
         <tr>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Commission:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['commission']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Commission: Rs.<?php echo $invoice[0]['commission']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Soothly: Rs.<?php echo $invoice[0]['soothly']; ?></td>
           <td>&nbsp;</td>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Commission:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['commission_less']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Commission: Rs.<?php echo $invoice[0]['commission_less'];?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Soothly: Rs.<?php echo $invoice[0]['soothly_less']; ?></td>
         </tr>
         <tr>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Labour:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['labour']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Labour: Rs.<?php echo $invoice[0]['labour']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Bardana: Rs.<?php echo $invoice[0]['bardana']; ?></td>
           <td>&nbsp;</td>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Labour:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['labour_less']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Labour: Rs.<?php echo $invoice[0]['labour_less']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Bardana: Rs.<?php echo $invoice[0]['bardana_less']; ?></td>
         </tr>
         <tr>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Brokerage:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['brokerage']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Brokerage: Rs.<?php echo $invoice[0]['brokerage']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Freight: Rs.<?php echo $invoice[0]['freight']; ?></td>
           <td>&nbsp;</td>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Brokerage:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['brokerage_less']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Brokerage: Rs.<?php echo $invoice[0]['brokerage_less']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Freight: Rs.<?php echo $invoice[0]['freight_less']; ?></td>
         </tr>
         <tr>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Loading:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['loading']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Loading: Rs.<?php echo $invoice[0]['loading']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Dami: Rs.<?php echo $invoice[0]['dami']; ?></td>
           <td>&nbsp;</td>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Loading:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['loading_less']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;">Loading: Rs.<?php echo $invoice[0]['loading_less']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;">Dami: Rs.<?php echo $invoice[0]['dami_less']; ?></td>
         </tr>
         <tr>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Market Fees:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['market_fees']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;border-bottom: 1px solid black">Market Fees: Rs.<?php echo $invoice[0]['market_fees']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;border-bottom: 1px solid black">Other Expense: Rs.<?php echo $invoice[0]['other_expense']; ?></td>
           <td>&nbsp;</td>
-          <td colspan="1" align="center" style="border-left: 1px solid black;"> Market Fees:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;"> Rs.<?php echo $invoice[0]['market_fees_less']; ?> </td>
-        </tr>
-        <tr>
-          <td colspan="1" align="center" style="border-left: 1px solid black;border-bottom: 1px solid black"> Other Expense:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;border-bottom: 1px solid black"> Rs.<?php echo $invoice[0]['other_expense']; ?> </td>
-          <td>&nbsp;</td>
-          <td colspan="1" align="center" style="border-left: 1px solid black;border-bottom: 1px solid black"> Other Expense:  </td>
-          <td colspan="1" align="center" style="border-right: 1px solid black;border-bottom: 1px solid black"> Rs.<?php echo $invoice[0]['other_expense_less']; ?> </td>
+          <td colspan="1" align="center" style="border-left: 1px solid black;border-bottom: 1px solid black">Market Fees: Rs.<?php echo $invoice[0]['market_fees_less']; ?></td>
+          <td colspan="1" align="center" style="border-right: 1px solid black;border-bottom: 1px solid black">Other Expense: Rs.<?php echo $invoice[0]['other_expense_less']; ?></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
