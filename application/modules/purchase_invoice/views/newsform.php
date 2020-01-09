@@ -105,7 +105,7 @@ div.ridge {
                               'name' => 'ref_no',
                               'id' => 'ref_no',
                               'class' => 'form-control',
-                              'type' => 'ref_no',
+                              'type' => 'text',
                               'tabindex' => '3',
                               'data-parsley-maxlength'=>TEXT_BOX_RANGE
                               );
@@ -133,8 +133,81 @@ div.ridge {
                             <select name="status" required="required" class="form-control" tabindex="5">
                               <option value="Un-Paid" <?php if($news['status']=='Un-Paid') echo "selected"; ?>>Un-Paid</option>
                               <option value="Paid" <?php if($news['status']=='Paid') echo "selected"; ?>>Paid</option>
+                              <option value="Partial" <?php if($news['status']=='Partial') echo "selected"; ?>>Partial</option>
                             </select>
                       </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <div class="form-group">
+                          <?php
+                              $data = array(
+                              'name' => 'vehicle_no',
+                              'id' => 'vehicle_no',
+                              'class' => 'form-control',
+                              'type' => 'text',
+                              'tabindex' => '4',
+                              'data-parsley-maxlength'=>TEXT_BOX_RANGE
+                              );
+                              $attribute = array('class' => 'control-label col-md-4');
+                              ?>
+                          <?php echo form_label('Vehicle No', 'vehicle_no', $attribute); ?>
+                          <div class="col-md-8"> <?php echo form_input($data); ?></div>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-group">
+                          <?php
+                              $data = array(
+                              'name' => 'gate_pass_no',
+                              'id' => 'gate_pass_no',
+                              'class' => 'form-control',
+                              'type' => 'text',
+                              'tabindex' => '4',
+                              'data-parsley-maxlength'=>TEXT_BOX_RANGE
+                              );
+                              $attribute = array('class' => 'control-label col-md-4');
+                              ?>
+                          <?php echo form_label('Gate Pass No', 'gate_pass_no', $attribute); ?>
+                          <div class="col-md-8"> <?php echo form_input($data); ?></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <div class="form-group">
+                          <?php
+                              $data = array(
+                              'name' => 'bags',
+                              'id' => 'bags',
+                              'class' => 'form-control',
+                              'type' => 'number',
+                              'tabindex' => '4',
+                              'data-parsley-maxlength'=>TEXT_BOX_RANGE
+                              );
+                              $attribute = array('class' => 'control-label col-md-4');
+                              ?>
+                          <?php echo form_label('Bags', 'bags', $attribute); ?>
+                          <div class="col-md-8"> <?php echo form_input($data); ?></div>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-group">
+                          <?php
+                              $data = array(
+                              'name' => 'remarks',
+                              'id' => 'remarks',
+                              'class' => 'form-control',
+                              'type' => 'text',
+                              'tabindex' => '4',
+                              'data-parsley-maxlength'=>TEXT_BOX_RANGE
+                              );
+                              $attribute = array('class' => 'control-label col-md-4');
+                              ?>
+                          <?php echo form_label('Remarks', 'remarks', $attribute); ?>
+                          <div class="col-md-8"> <?php echo form_input($data); ?></div>
                         </div>
                       </div>
                     </div>
@@ -146,12 +219,13 @@ div.ridge {
                     </div>
                     
                <div class="row" style="padding-top: 15px;">
-                      <div class="col-sm-10">
+                <div  class="col-md-1"></div>
+                      <div class="col-sm-9">
                           <div class="form-group">
                             <div class="control-label col-md-1">
                               <label>Product</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-11">
                               <select name="product" id="product" class="chosen form-control product" tabindex="6">
                                 <option value=""></option>
                               <?php if(isset($product) && !empty($product))
@@ -160,17 +234,31 @@ div.ridge {
                               <?php endforeach; ?>
                             </select>
                             </div>
-                          
-                          <div class="control-label col-md-1">
+                      </div>
+                    </div>
+                    <button class="btn btn-primary add_product btn-lg" tabindex="7" style="border-radius: 7px !important;padding-left: 30px;padding-right: 30px;font-size: 20px;">Add</button>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="control-label col-md-1">
                           <label>Weight</label>
-                        </div>
+                          </div>
                         <div class="col-md-2">
                           <input type="text" name="qty" class="form-control" value="" style="text-align: center;">
                         </div>
+                        <div class="control-label col-md-1">
+                          <label>Bardana</label>
+                          </div>
+                        <div class="col-md-2">
+                          <input type="text" name="bardana_weight" class="form-control" value="" style="text-align: center;">
                         </div>
-                      </div>
-                    <button class="btn btn-primary add_product btn-lg" tabindex="7" style="border-radius: 7px !important;padding-left: 30px;padding-right: 30px;font-size: 20px;">Add</button>
-                    </div>
+                        <div class="control-label col-md-1">
+                          <label>Allowance</label>
+                          </div>
+                        <div class="col-md-2">
+                          <input type="text" name="allowance" class="form-control" value="" style="text-align: center;">
+                        </div>
+                  </div>
                     <div class="row" style="padding-top: 20px;">
                       <div class="col-md-1">
                       </div>
@@ -442,11 +530,13 @@ $(document).on("click", ".add_product", function(event){
 event.preventDefault();
 var product = $(this).parent().find('select[name=product]').val();
 var qty = $('input[name=qty]').val();
+var bardana = $('input[name=bardana_weight]').val();
+var allowance = $('input[name=allowance]').val();
 var total_pay = $('input[name=total_pay]').val();
     $.ajax({
                 type: 'POST',
                 url: "<?php echo ADMIN_BASE_URL?>purchase_invoice/add_product",
-                data: {'product': product ,'total_pay' :total_pay , 'qty':qty},
+                data: {'product': product ,'total_pay' :total_pay , 'qty':qty,'bardana':bardana,'allowance':allowance},
                 dataType: 'json',
                 async: false,
                 success: function(result) {

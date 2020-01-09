@@ -32,6 +32,17 @@ class Mdl_account extends CI_Model {
         return $this->db->get($table);
     }
 
+    // function _get_for_cash_recieved($order_by){
+    //     $user_data = $this->session->userdata('user_data');
+    //     $org_id = $user_data['user_id'];
+    //     $table = $this->get_table();
+    //     $where = '(type="Supplier")'
+    //     $this->db->where('type',$org_id);
+    //     $this->db->where('org_id',$org_id);
+    //     $this->db->order_by($order_by);
+    //     return $this->db->get($table);
+    // }
+
     function _get_transaction_list() {
         $table = 'account_transaction';
         $user_data = $this->session->userdata('user_data');

@@ -68,6 +68,10 @@ class purchase_invoice extends MX_Controller
                 $row) {
             $data['id'] = $row->id;
             $data['ref_no'] = $row->ref_no;
+            $data['vehicle_no'] = $row->vehicle_no;
+            $data['bags'] = $row->bags;
+            $data['remarks'] = $row->remarks;
+            $data['gate_pass_no'] = $row->gate_pass_no;
             $data['commission'] = $row->commission;
             $data['labour'] = $row->labour;
             $data['brokerage'] = $row->brokerage;
@@ -113,6 +117,10 @@ class purchase_invoice extends MX_Controller
         }
         $data['date'] = $this->input->post('date');
         $data['ref_no'] = $this->input->post('ref_no');
+        $data['vehicle_no'] = $this->input->post('vehicle_no');
+        $data['remarks'] = $this->input->post('remarks');
+        $data['gate_pass_no'] = $this->input->post('gate_pass_no');
+        $data['bags'] = $this->input->post('bags');
         $data['commission'] = $this->input->post('commission');
         $data['labour'] = $this->input->post('labour');
         $data['brokerage'] = $this->input->post('brokerage');
@@ -238,7 +246,10 @@ class purchase_invoice extends MX_Controller
     function add_product(){
         $product = $this->input->post('product');
         $qty = $this->input->post('qty');
+        $bardana = $this->input->post('bardana');
+        $allowance = $this->input->post('allowance');
         $totalIn = $this->input->post('total_pay');
+        $qty = $qty - ($bardana+$allowance);
         if(isset($product) && !empty($product)){
             $productData = explode(",",$product);
             $product_id = $productData[0];

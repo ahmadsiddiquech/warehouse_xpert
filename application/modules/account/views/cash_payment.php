@@ -7,7 +7,7 @@
     <div class="content-wrapper">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
       <h3>
-        Make Transaction
+        Cash Payment
    <a href="<?php echo ADMIN_BASE_URL . 'account/transaction_list'; ?>"><button type="button" class="btn btn-lg btn-primary pull-right"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;&nbsp;<b>Back</b></button></a></h3>
             
     </div>
@@ -31,9 +31,9 @@
                             $hidden = array('hdnId' => $update_id, 'hdnActive' => $news['status']); ////edit case
                         }
                         if (isset($hidden) && !empty($hidden))
-                            echo form_open_multipart(ADMIN_BASE_URL . 'account/submit_transaction/' . $update_id, $attributes, $hidden);
+                            echo form_open_multipart(ADMIN_BASE_URL . 'account/submit_cash_payment/' . $update_id, $attributes, $hidden);
                         else
-                            echo form_open_multipart(ADMIN_BASE_URL . 'account/submit_transaction/' . $update_id, $attributes);
+                            echo form_open_multipart(ADMIN_BASE_URL . 'account/submit_cash_payment/' . $update_id, $attributes);
                         ?>
                   <div class="form-body">
                     
@@ -83,9 +83,9 @@
                             <div class="col-md-8">
                               <select name="account_to" id="account_to" class="chosen form-control" required="required" tabindex="2" required="required">
                                 <option value=""></option>
-                              <?php if(isset($account) && !empty($account))
-                              foreach ($account as $key => $value):?>
-                                <option value="<?php echo $value['id'].','.$value['name'].','.$value['type'] ?>"><?php echo $value['name'].' - '.$value['type'];?></option>
+                              <?php if(isset($supplier) && !empty($supplier))
+                              foreach ($supplier as $key => $value):?>
+                                <option value="<?php echo $value['id'].','.$value['name']?>"><?php echo $value['name'];?></option>
                               <?php endforeach; ?>
                             </select>
                             </div>
