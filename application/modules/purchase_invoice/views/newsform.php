@@ -239,7 +239,12 @@ div.ridge {
                     <button class="btn btn-primary add_product btn-lg" tabindex="7" style="border-radius: 7px !important;padding-left: 30px;padding-right: 30px;font-size: 20px;">Add</button>
                   </div>
                   <div class="row">
-                    <div class="col-md-1"></div>
+                    <div class="control-label col-md-1">
+                          <label>Unit Price</label>
+                          </div>
+                        <div class="col-md-2">
+                          <input type="text" name="price" id="price" class="form-control" value="" style="text-align: center;">
+                        </div>
                     <div class="control-label col-md-1">
                           <label>Weight</label>
                           </div>
@@ -526,17 +531,31 @@ div.ridge {
 
 $(document).ready(function(){
 
+  $("#product").change(function () {
+      var product = this.value;
+       $.ajax({
+            type: 'POST',
+            url: "<?php echo ADMIN_BASE_URL?>purchase_invoice/get_product",
+            data: {'product': product },
+            async: false,
+            success: function(result) {
+            $("#price").val(result);
+          }
+        });
+  });
+
 $(document).on("click", ".add_product", function(event){
 event.preventDefault();
 var product = $(this).parent().find('select[name=product]').val();
 var qty = $('input[name=qty]').val();
 var bardana = $('input[name=bardana_weight]').val();
+var price = $('input[name=price]').val();
 var allowance = $('input[name=allowance]').val();
 var total_pay = $('input[name=total_pay]').val();
     $.ajax({
                 type: 'POST',
                 url: "<?php echo ADMIN_BASE_URL?>purchase_invoice/add_product",
-                data: {'product': product ,'total_pay' :total_pay , 'qty':qty,'bardana':bardana,'allowance':allowance},
+                data: {'product': product ,'total_pay' :total_pay , 'qty':qty,'bardana':bardana,'allowance':allowance, 'price':price},
                 dataType: 'json',
                 async: false,
                 success: function(result) {

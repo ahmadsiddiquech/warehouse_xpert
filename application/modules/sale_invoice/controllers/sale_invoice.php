@@ -251,11 +251,23 @@ class sale_invoice extends MX_Controller
 
     //=============AJAX FUNCTIONS==============
 
+    function get_product(){
+        $product = $this->input->post('product');
+        if(isset($product) && !empty($product)){
+            $productData = explode(",",$product);
+            $product_id = $productData[0];
+            $sale_price = $productData[2];
+        }
+        print_r($sale_price);
+
+    }
+
     function add_product(){
         $product = $this->input->post('product');
         $qty = $this->input->post('qty');
         $bardana = $this->input->post('bardana');
         $allowance = $this->input->post('allowance');
+        $price = $this->input->post('price');
         $totalIn = $this->input->post('total_pay');
         $qty = $qty - ($bardana+$allowance);
         $totalIn = $this->input->post('total_pay');
@@ -269,10 +281,10 @@ class sale_invoice extends MX_Controller
         $i = 0;
         if (isset($arr_product) && !empty($arr_product)) {
             foreach ($arr_product as $key => $value) {
-                $sale_price = ($qty/$value['scale'])*$value['sale_price'];
+                $sale_price = ($qty/$value['scale'])*$price;
                 $html.='<tr>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_product[]" value="'.$value['id'].','.$value['name'].' - '.$value['p_c_name'].'"></td>';
-                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_price[]" value='.$value['sale_price'].'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_price[]" value='.$price.'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" type="number"  name="sale_qty[]" value='.$qty.'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="sale_amount[]" value='.$sale_price.'></td>';
                 $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$sale_price.'><i class="fa fa-remove"  title="Delete Item" style="color:red;"></i></a></td>';

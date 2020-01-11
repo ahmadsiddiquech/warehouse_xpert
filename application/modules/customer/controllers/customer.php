@@ -8,6 +8,7 @@ class Customer extends MX_Controller
 
     function __construct() {
         parent::__construct();
+        $this->load->library('excel');
         Modules::run('site_security/is_login');
     }
 
@@ -20,6 +21,52 @@ class Customer extends MX_Controller
         $data['view_file'] = 'news';
         $this->load->module('template');
         $this->template->admin($data);
+    }
+
+    function import_view() {
+        $data['view_file'] = 'import';
+        $this->load->module('template');
+        $this->template->admin($data);
+    }
+
+    function import()
+    {
+        $user_data = $this->session->userdata('user_data');
+        $org_id = $user_data['user_id'];
+        if(isset($_FILES["file"]["name"]))
+        {
+            $path = $_FILES["file"]["tmp_name"];
+            $object = PHPExcel_IOFactory::load($path);
+            foreach($object->getWorksheetIterator() as $worksheet)
+            {
+                $highestRow = $worksheet->getHighestRow();
+                for($row=1; $row<=$highestRow; $row++)
+                {   
+                    
+                    $name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+                    $address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+                    $phone = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+                    $total = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+                    $paid = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+                    $remaining = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+                    $data[] = array(
+                        'name'  => $name,
+                        'address'   => $address,
+                        'phone'    => $phone,
+                        'total'  => $total,
+                        'paid'  => $paid,
+                        'remaining'    => $remaining,
+                        'org_id'    => $org_id
+                    );
+                }
+            }
+            $this->load->model('mdl_customer');
+            $this->mdl_customer->insert_import($data);
+            $this->session->set_flashdata('message', 'customer'.' '.DATA_SAVED);                                        
+            $this->session->set_flashdata('status', 'success');
+            
+            redirect(ADMIN_BASE_URL . 'customer');
+        }
     }
 
     function create() {

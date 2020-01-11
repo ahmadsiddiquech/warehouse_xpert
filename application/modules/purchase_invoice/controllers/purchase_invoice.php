@@ -243,9 +243,21 @@ class purchase_invoice extends MX_Controller
 
     //=============AJAX FUNCTIONS==============
 
+    function get_product(){
+        $product = $this->input->post('product');
+        if(isset($product) && !empty($product)){
+            $productData = explode(",",$product);
+            $product_id = $productData[0];
+            $sale_price = $productData[2];
+        }
+        print_r($sale_price);
+
+    }
+
     function add_product(){
         $product = $this->input->post('product');
         $qty = $this->input->post('qty');
+        $price = $this->input->post('price');
         $bardana = $this->input->post('bardana');
         $allowance = $this->input->post('allowance');
         $totalIn = $this->input->post('total_pay');
@@ -259,10 +271,10 @@ class purchase_invoice extends MX_Controller
         $html='';
         if (isset($arr_product) && !empty($arr_product)) {
             foreach ($arr_product as $key => $value) {
-                $purchase_price = ($qty/$value['scale'])*$value['purchase_price'];
+                $purchase_price = ($qty/$value['scale'])*$price;
                 $html.='<tr>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="purchase_product[]" value="'.$value['id'].','.$value['name'].' - '.$value['p_c_name'].'"></td>';
-                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="purchase_price[]" value='.$value['purchase_price'].'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="purchase_price[]" value='.$price.'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" type="number" readonly name="purchase_qty[]" value='.$qty.'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="purchase_amount[]" value='.$purchase_price.'></td>';
                 $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$purchase_price.'><i class="fa fa-remove"  title="Delete Item"></i></a></td>';
