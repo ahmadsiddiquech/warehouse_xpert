@@ -21,7 +21,7 @@
 <body class="container pt-5">
     <div class="row">
     <div class="col-md-3">
-      <img src="<?php echo STATIC_ADMIN_IMAGE.'logo.png'?>" height="100px;">
+      <img src="<?php echo STATIC_ADMIN_IMAGE.$invoice[0]['image']?>" height="100px;">
     </div>
     <div class="col-md-6 ">
       <h1 style="text-align: center;">

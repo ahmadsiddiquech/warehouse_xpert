@@ -96,7 +96,7 @@
                                                         'name' => 'org_phone',
                                                         'id' => 'org_phone',
                                                         'class' => 'form-control',
-                                                        'type' => 'number',
+                                                        'type' => 'text',
                                                         'tabindex' => '2',
                                                         'required' => 'required',
                                                         'value' => $users['org_phone']
@@ -135,7 +135,7 @@
                                                         'name' => 'owner_phone',
                                                         'id' => 'owner_phone',
                                                         'class' => 'form-control',
-                                                        'type' => 'number',
+                                                        'type' => 'text',
                                                         'tabindex' => '4',
                                                         'data-parsley-maxlength'=>TEXT_BOX_RANGE,
                                                        'value' => $users['owner_phone'],

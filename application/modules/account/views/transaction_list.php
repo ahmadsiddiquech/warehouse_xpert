@@ -15,6 +15,7 @@
                         <th class="sr">S.No</th>
                         <th>Transaction From</th>
                         <th>Trasaction To</th>
+                        <th>TransactionType</th>
                         <th>Amount</th>
                         <th>Date</th>
                         </tr>
@@ -32,6 +33,7 @@
                                     <td width='2%'><?php echo $i;?></td>
                                     <td><?php echo wordwrap($new->account_from_name)  ?></td>
                                     <td><?php echo wordwrap($new->account_to_name)  ?></td>
+                                    <td><?php echo wordwrap($new->transaction_type)  ?></td>
                                     <td><?php echo wordwrap($new->amount)  ?></td>
                                     <td><?php echo wordwrap($new->date)  ?></td>
                                 </tr>

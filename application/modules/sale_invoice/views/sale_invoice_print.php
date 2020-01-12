@@ -21,7 +21,7 @@
 <body class="container pt-5">
     <div class="row">
     <div class="col-md-3">
-      <img src="<?php echo STATIC_ADMIN_IMAGE.'logo.png'?>" height="100px;">
+      <img src="<?php echo STATIC_ADMIN_IMAGE.$invoice[0]['image']?>" height="100px;">
     </div>
     <div class="col-md-6 ">
       <h1 style="text-align: center;">
@@ -92,7 +92,7 @@
   <?php foreach ($invoice as $key => $value) { ?>
     <tr style="text-align: center;">
       <td colspan="1" class="border1"> <?php echo 'PR -'.$value['product_id'];?></td>
-      <td colspan="1" class="border1"> <?php echo $value['product_name'].' - '.$value['p_c_name'];?></td>
+      <td colspan="1" class="border1"> <?php echo $value['product_name'].' - '.$value['p_c_name'].'- Bardana '.$value['bardana']. ' - Allowance '.$value['allowance'];?></td>
       <td colspan="1" class="border1"> <?php echo $value['sale_price'];?></td>
       <td colspan="1" class="border1"> <?php echo $value['qty'];?></td>
       <td colspan="1" class="border1" style="border-right: 1px solid black"> <?php echo $value['amount'];?></td>
@@ -107,39 +107,79 @@
     <td colspan="2" style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black"><b>Less Expense</b></td>
   </tr>
         <tr>
+          <?php  if(isset($invoice[0]['commission']) && !empty($invoice[0]['commission'])){?>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Commission: Rs.<?php echo $invoice[0]['commission']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['soothly']) && !empty($invoice[0]['soothly'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Soothly: Rs.<?php echo $invoice[0]['soothly']; ?></td>
-          <td>&nbsp;</td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['commission_less']) && !empty($invoice[0]['commission_less'])){?>
+            <td>&nbsp;</td>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Commission: Rs.<?php echo $invoice[0]['commission_less'];?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['soothly_less']) && !empty($invoice[0]['soothly_less'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Soothly: Rs.<?php echo $invoice[0]['soothly_less']; ?></td>
+          <?php }?>
         </tr>
         <tr>
+          <?php  if(isset($invoice[0]['labour']) && !empty($invoice[0]['labour'])){?>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Labour: Rs.<?php echo $invoice[0]['labour']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['bardana']) && !empty($invoice[0]['bardana'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Bardana: Rs.<?php echo $invoice[0]['bardana']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['labour_less']) && !empty($invoice[0]['labour_less'])){?>
           <td>&nbsp;</td>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Labour: Rs.<?php echo $invoice[0]['labour_less']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['bardana_less']) && !empty($invoice[0]['bardana_less'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Bardana: Rs.<?php echo $invoice[0]['bardana_less']; ?></td>
+          <?php }?>
         </tr>
         <tr>
+          <?php  if(isset($invoice[0]['brokerage']) && !empty($invoice[0]['brokerage'])){?>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Brokerage: Rs.<?php echo $invoice[0]['brokerage']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['freight']) && !empty($invoice[0]['freight'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Freight: Rs.<?php echo $invoice[0]['freight']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['brokerage_less']) && !empty($invoice[0]['brokerage_less'])){?>
           <td>&nbsp;</td>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Brokerage: Rs.<?php echo $invoice[0]['brokerage_less']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['freight_less']) && !empty($invoice[0]['freight_less'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Freight: Rs.<?php echo $invoice[0]['freight_less']; ?></td>
+          <?php }?>
         </tr>
         <tr>
+          <?php  if(isset($invoice[0]['loading']) && !empty($invoice[0]['loading'])){?>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Loading: Rs.<?php echo $invoice[0]['loading']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['dami']) && !empty($invoice[0]['dami'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Dami: Rs.<?php echo $invoice[0]['dami']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['loading_less']) && !empty($invoice[0]['loading_less'])){?>
           <td>&nbsp;</td>
           <td colspan="1" align="center" style="border-left: 1px solid black;">Loading: Rs.<?php echo $invoice[0]['loading_less']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['dami_less']) && !empty($invoice[0]['dami_less'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;">Dami: Rs.<?php echo $invoice[0]['dami_less']; ?></td>
+          <?php }?>
         </tr>
         <tr>
+          <?php  if(isset($invoice[0]['market_fees']) && !empty($invoice[0]['market_fees'])){?>
           <td colspan="1" align="center" style="border-left: 1px solid black;border-bottom: 1px solid black">Market Fees: Rs.<?php echo $invoice[0]['market_fees']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['other_expense']) && !empty($invoice[0]['other_expense'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;border-bottom: 1px solid black">Other Expense: Rs.<?php echo $invoice[0]['other_expense']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['market_fees_less']) && !empty($invoice[0]['market_fees_less'])){?>
           <td>&nbsp;</td>
           <td colspan="1" align="center" style="border-left: 1px solid black;border-bottom: 1px solid black">Market Fees: Rs.<?php echo $invoice[0]['market_fees_less']; ?></td>
+          <?php }?>
+          <?php  if(isset($invoice[0]['other_expense_less']) && !empty($invoice[0]['other_expense_less'])){?>
           <td colspan="1" align="center" style="border-right: 1px solid black;border-bottom: 1px solid black">Other Expense: Rs.<?php echo $invoice[0]['other_expense_less']; ?></td>
+          <?php }?>
         </tr>
         <tr>
           <td>&nbsp;</td>

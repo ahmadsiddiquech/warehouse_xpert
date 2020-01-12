@@ -177,8 +177,6 @@ class purchase_invoice extends MX_Controller
                 elseif ($data['change'] > 0) {
                     $data2['paid'] = $supplier[0]['paid'] + $data['grand_total'];
                 }
-
-
             $this->_update_supplier_amount($data['supplier_id'],$data2,$org_id);
             $this->insert_product($purchase_invoice_id,$org_id);
 

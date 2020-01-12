@@ -85,7 +85,7 @@ div.ridge {
                       <div class="col-sm-5">
                           <div class="form-group">
                             <div class="control-label col-md-4">
-                              <label>Customer Name</label>
+                              <label>Account Holder</label>
                             </div>
                             <div class="col-md-8">
                               <select name="customer" id="customer" class="chosen form-control customer" tabindex="2" required="required">
@@ -93,7 +93,7 @@ div.ridge {
                                 <option value="">Walk In</option>
                               <?php if(isset($customer) && !empty($customer))
                               foreach ($customer as $key => $value):?>
-                                <option <?php if(isset($news['customer_id']) && $news['customer_id'] == $value['id']) echo "selected"; ?> value="<?php echo $value['id'].','.$value['name'] ?>"><?=$value['name'];?></option>
+                                <option <?php if(isset($news['customer_id']) && $news['customer_id'] == $value['id']) echo "selected"; ?> value="<?php echo $value['id'].','.$value['name'].','.$value['type'] ?>"><?php echo $value['name'].' - '.$value['type']?></option>
                               <?php endforeach; ?>
                             </select>
                             </div>
@@ -251,14 +251,15 @@ div.ridge {
                         </div>
                   </div>
                     <div class="row" style="padding-top: 20px;">
-                      <div class="col-md-1">
-                      </div>
-                      <div class="col-md-10">
+                      <div class="col-md-12">
                       <table style="width: 100%;">
                       <thead>
                        <tr>
                         <th>Description</th>
                         <th>Price per Unit</th>
+                        <th>Gross Weight</th>
+                        <th>Bardana</th>
+                        <th>Allowance</th>
                         <th>Net Weight</th>
                         <th>Amount</th>
                         <th>Action</th>

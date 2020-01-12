@@ -33,9 +33,11 @@ class sale_invoice extends MX_Controller
             $data['news'] = $this->_get_data_from_post();
         }
         $customer = Modules::run('customer/_get_by_arr_id_customer',$org_id)->result_array();
+        $supplier = Modules::run('supplier/_get_by_arr_id_supplier',$org_id)->result_array();
         $product = Modules::run('product/_get_by_arr_id_product',$org_id)->result_array();
+        $account = array_merge($customer,$supplier);
 
-        $data['customer'] = $customer;
+        $data['customer'] = $account;
         $data['product'] = $product;
         $data['update_id'] = $update_id;
         $data['view_file'] = 'newsform';
@@ -59,7 +61,7 @@ class sale_invoice extends MX_Controller
         $org_id = $user_data['user_id'];
         $customer = $this->_get_by_arr_id($sale_invoice_id)->result_array();
         if (isset($customer) && !empty($customer)) {
-            $data['invoice'] = $this->_get_sale_invoice_data($sale_invoice_id,$customer[0]['customer_id'],$org_id)->result_array();
+            $data['invoice'] = $this->_get_sale_invoice_data($sale_invoice_id,$customer[0]['customer_id'],$org_id,$customer[0]['type'])->result_array();
         }
         if ($org_id == 24) {
             $this->load->view('DONT_DELETE_INVOICE',$data);
@@ -76,6 +78,7 @@ class sale_invoice extends MX_Controller
                 $row) {
             $data['id'] = $row->id;
             $data['vehicle_no'] = $row->vehicle_no;
+            $data['type'] = $row->type;
             $data['bags'] = $row->bags;
             $data['remarks'] = $row->remarks;
             $data['gate_pass_no'] = $row->gate_pass_no;
@@ -121,12 +124,12 @@ class sale_invoice extends MX_Controller
             $customer2=explode(',', $customer);
             $data['customer_id'] = $customer2[0];
             $data['customer_name'] = $customer2[1];
+            $data['type'] = $customer2[2];
         }
         else{
             $data['customer_id'] = 0;
             $data['customer_name'] = 'walk-in';
         }
-        $data['date'] = $this->input->post('date');
         $data['vehicle_no'] = $this->input->post('vehicle_no');
         $data['remarks'] = $this->input->post('remarks');
         $data['gate_pass_no'] = $this->input->post('gate_pass_no');
@@ -175,33 +178,59 @@ class sale_invoice extends MX_Controller
         }
         else {
             $sale_invoice_id = $this->_insert_sale_invoice($data);
-            
-            if ($data['customer_id'] != 0) {
-                $where['id'] = $data['customer_id'];
-                $customer = Modules::run('customer/_get_by_arr_id',$where)->result_array();
-                $data2['remaining'] = $customer[0]['remaining'] + $data['remaining'];
-                $data2['total'] = $customer[0]['total'] + $data['grand_total'];
-                
+            if ($data['type'] == 'customer') {
+                if ($data['customer_id'] != 0) {
+                    $where['id'] = $data['customer_id'];
+                    $customer = Modules::run('customer/_get_by_arr_id',$where)->result_array();
+                    $data2['remaining'] = $customer[0]['remaining'] + $data['remaining'];
+                    $data2['total'] = $customer[0]['total'] + $data['grand_total'];
+                    
+                    if ($data['change'] == 0) {
+                        $data2['paid'] = $customer[0]['paid'] + $data['cash_received'];
+                    }
+                    elseif ($data['change'] > 0) {
+                        $data2['paid'] = $customer[0]['paid'] + $data['grand_total'];
+                    }
+                    $this->_update_customer_amount($data['customer_id'],$data2,$org_id);
+                }
+
                 if ($data['change'] == 0) {
-                    $data2['paid'] = $customer[0]['paid'] + $data['cash_received'];
-                }
-                elseif ($data['change'] > 0) {
-                    $data2['paid'] = $customer[0]['paid'] + $data['grand_total'];
+                        $data3['paid'] = $data['cash_received'];
+                    }
+                    elseif ($data['change'] > 0) {
+                        $data3['paid'] = $data['grand_total'];
                 }
 
-                $this->_update_customer_amount($data['customer_id'],$data2,$org_id);
+                $cash_in_hand = Modules::run('account/_get_cash_in_hand')->result_array();
+                $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data3['paid'];
+                Modules::run('account/_update_cash_in_hand',$cash);
             }
+            elseif ($data['type'] == 'supplier') {
+                $where['id'] = $data['customer_id'];
+                $supplier = Modules::run('supplier/_get_by_arr_id',$where)->result_array();
 
-            if ($data['change'] == 0) {
-                    $data3['paid'] = $data['cash_received'];
+                    $data2['remaining'] = $supplier[0]['remaining'] + $data['remaining'];
+                    $data2['total'] = $supplier[0]['total'] + $data['grand_total'];
+                    
+                    if ($data['change'] == 0) {
+                        $data2['paid'] = $supplier[0]['paid'] + $data['cash_received'];
+                    }
+                    elseif ($data['change'] > 0) {
+                        $data2['paid'] = $supplier[0]['paid'] + $data['grand_total'];
+                    }
+                Modules::run('supplier/_update_supplier_amount',$data['customer_id'],$data2,$org_id);
+
+                if ($data['change'] == 0) {
+                        $data3['paid'] = $data['cash_received'];
+                    }
+                    elseif ($data['change'] > 0) {
+                        $data3['paid'] = $data['grand_total'];
                 }
-                elseif ($data['change'] > 0) {
-                    $data3['paid'] = $data['grand_total'];
-            }
 
-            $cash_in_hand = Modules::run('account/_get_cash_in_hand')->result_array();
-            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data3['paid'];
-            Modules::run('account/_update_cash_in_hand',$cash);
+                $cash_in_hand = Modules::run('account/_get_cash_in_hand')->result_array();
+                $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] - $data3['paid'];
+                Modules::run('account/_update_cash_in_hand',$cash);
+            }
             $this->insert_product($sale_invoice_id,$org_id);
         }
         $this->session->set_flashdata('message', 'sale_invoice'.' '.DATA_SAVED);
@@ -212,6 +241,9 @@ class sale_invoice extends MX_Controller
 
     function insert_product($sale_invoice_id,$org_id){
         $sale_product = $this->input->post('sale_product');
+        $gross_weight = $this->input->post('sale_gross_weight');
+        $bardana = $this->input->post('sale_bardana');
+        $allowance = $this->input->post('sale_allowance');
         $sale_qty = $this->input->post('sale_qty');
         $sale_amount = $this->input->post('sale_amount');
         $counter = 0;
@@ -234,6 +266,9 @@ class sale_invoice extends MX_Controller
                     $data['s_c_id'] = $value1['s_c_id'];
                     $data['s_c_name'] = $value1['s_c_name'];
                     $data['sale_price'] = $value1['sale_price'];
+                    $data['gross'] = $gross_weight[$counter];
+                    $data['bardana'] = $bardana[$counter];
+                    $data['allowance'] = $allowance[$counter];
                     $data['qty'] = $sale_qty[$counter];
                     $data['amount'] = $sale_amount[$counter];
                     $data['org_id'] = $org_id;
@@ -264,12 +299,12 @@ class sale_invoice extends MX_Controller
 
     function add_product(){
         $product = $this->input->post('product');
-        $qty = $this->input->post('qty');
+        $gross = $this->input->post('qty');
         $bardana = $this->input->post('bardana');
         $allowance = $this->input->post('allowance');
         $price = $this->input->post('price');
         $totalIn = $this->input->post('total_pay');
-        $qty = $qty - ($bardana+$allowance);
+        $qty = $gross - ($bardana+$allowance);
         $totalIn = $this->input->post('total_pay');
         if(isset($product) && !empty($product)){
             $productData = explode(",",$product);
@@ -285,6 +320,9 @@ class sale_invoice extends MX_Controller
                 $html.='<tr>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_product[]" value="'.$value['id'].','.$value['name'].' - '.$value['p_c_name'].'"></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_price[]" value='.$price.'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_gross_weight[]" value='.$gross.'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_bardana[]" value='.$bardana.'></td>';
+                $html.='<td><input style="text-align: center;" class="form-control" readonly type="text" name="sale_allowance[]" value='.$allowance.'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" type="number"  name="sale_qty[]" value='.$qty.'></td>';
                 $html.='<td><input style="text-align: center;" class="form-control" readonly type="number" name="sale_amount[]" value='.$sale_price.'></td>';
                 $html.='<td><a class="btn delete" onclick="delete_row(this)" amount='.$sale_price.'><i class="fa fa-remove"  title="Delete Item" style="color:red;"></i></a></td>';
@@ -351,9 +389,9 @@ class sale_invoice extends MX_Controller
         $this->mdl_sale_invoice->_delete($arr_col, $org_id);
     }
 
-    function _get_sale_invoice_data($sale_invoice_id,$customer_id,$org_id) {
+    function _get_sale_invoice_data($sale_invoice_id,$customer_id,$org_id,$type) {
         $this->load->model('mdl_sale_invoice');
-        return $this->mdl_sale_invoice->_get_sale_invoice_data($sale_invoice_id,$customer_id,$org_id);
+        return $this->mdl_sale_invoice->_get_sale_invoice_data($sale_invoice_id,$customer_id,$org_id,$type);
     }
 
     function _update_product_stock($data2,$org_id,$product_id){

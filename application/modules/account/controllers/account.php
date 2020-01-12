@@ -55,12 +55,220 @@ class Account extends MX_Controller
         $this->template->admin($data);
     }
 
+    function submit_transaction() {
+        $account_from = $this->input->post('account_from');
+        if (isset($account_from) && !empty($account_from)) {
+            $account_from2=explode(',', $account_from);
+            $data['account_from_id'] = $account_from2[0];
+            $data['account_from_name'] = $account_from2[1];
+            $type_from = $account_from2[2];
+        }
+
+        $account_to = $this->input->post('account_to');
+        if (isset($account_to) && !empty($account_to)) {
+            $account_to2=explode(',', $account_to);
+            $data['account_to_id'] = $account_to2[0];
+            $data['account_to_name'] = $account_to2[1];
+            $type_to = $account_to2[2];
+        }
+        $data['amount'] = $this->input->post('amount');
+        $data['transaction_type'] ='TR';
+        $data['comment'] = $this->input->post('comment');
+        $data['ref_no'] = $this->input->post('ref_no');
+        $data['date'] = date('Y-m-d');
+        $user_data = $this->session->userdata('user_data');
+        $data['org_id'] = $user_data['user_id'];
+        $this->_insert_transaction($data);
+
+        if ($type_from == 'Cash-in-hand' || $type_from == 'Loan' || $type_from == 'Asset' || $type_from == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] - $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+
+        if ($type_to == 'Cash-in-hand' || $type_to == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+        elseif ($type_to == 'Salary' || $type_to == 'Loan' || $type_to == 'Asset') {
+            $cash = $this->_get_account_balance($type_to)->result_array();
+            $cash['paid'] = $cash[0]['paid'] + $data['amount'];
+            $cash['paid'] = $cash[0]['opening_balance'] - $cash['paid'];
+            $this->_update_cash($type_from,$data);
+        }
+
+        $this->session->set_flashdata('message', 'account'.' '.DATA_SAVED);                 
+        $this->session->set_flashdata('status', 'success');
+        redirect(ADMIN_BASE_URL . 'account/transaction');
+    }
+
+    function bank_deposit() {
+        $account = $this->_get('id desc')->result_array();
+        $data['account'] = $account;
+        $data['view_file'] = 'bank_deposit';
+        $this->load->module('template');
+        $this->template->admin($data);
+    }
+
+    function submit_bank_deposit() {
+        $account_from = $this->input->post('account_from');
+        if (isset($account_from) && !empty($account_from)) {
+            $account_from2=explode(',', $account_from);
+            $data['account_from_id'] = $account_from2[0];
+            $data['account_from_name'] = $account_from2[1];
+            $type_from = $account_from2[2];
+        }
+
+        $account_to = $this->input->post('account_to');
+        if (isset($account_to) && !empty($account_to)) {
+            $account_to2=explode(',', $account_to);
+            $data['account_to_id'] = $account_to2[0];
+            $data['account_to_name'] = $account_to2[1];
+            $type_to = $account_to2[2];
+        }
+        $data['amount'] = $this->input->post('amount');
+        $data['transaction_type'] ='BD';
+        $data['comment'] = $this->input->post('comment');
+        $data['ref_no'] = $this->input->post('ref_no');
+        $data['date'] = date('Y-m-d');
+        $user_data = $this->session->userdata('user_data');
+        $data['org_id'] = $user_data['user_id'];
+        $this->_insert_transaction($data);
+
+        if ($type_from == 'Cash-in-hand' || $type_from == 'Loan' || $type_from == 'Asset' || $type_from == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] - $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+
+        if ($type_to == 'Cash-in-hand' || $type_to == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+        elseif ($type_to == 'Salary' || $type_to == 'Loan' || $type_to == 'Asset') {
+            $cash = $this->_get_account_balance($type_to)->result_array();
+            $cash['paid'] = $cash[0]['paid'] + $data['amount'];
+            $cash['paid'] = $cash[0]['opening_balance'] - $cash['paid'];
+            $this->_update_cash($type_from,$data);
+        }
+
+        $this->session->set_flashdata('message', 'account'.' '.DATA_SAVED);                 
+        $this->session->set_flashdata('status', 'success');
+        redirect(ADMIN_BASE_URL . 'account/transaction');
+    }
+
     function  bank_recieved() {
         $account = $this->_get('id desc')->result_array();
         $data['account'] = $account;
         $data['view_file'] = 'bank_recieved';
         $this->load->module('template');
         $this->template->admin($data);
+    }
+
+    function submit_bank_recieved() {
+        $account_from = $this->input->post('account_from');
+        if (isset($account_from) && !empty($account_from)) {
+            $account_from2=explode(',', $account_from);
+            $data['account_from_id'] = $account_from2[0];
+            $data['account_from_name'] = $account_from2[1];
+            $type_from = $account_from2[2];
+        }
+
+        $account_to = $this->input->post('account_to');
+        if (isset($account_to) && !empty($account_to)) {
+            $account_to2=explode(',', $account_to);
+            $data['account_to_id'] = $account_to2[0];
+            $data['account_to_name'] = $account_to2[1];
+            $type_to = $account_to2[2];
+        }
+        $data['amount'] = $this->input->post('amount');
+        $data['transaction_type'] ='BR';
+        $data['comment'] = $this->input->post('comment');
+        $data['ref_no'] = $this->input->post('ref_no');
+        $data['date'] = date('Y-m-d');
+        $user_data = $this->session->userdata('user_data');
+        $data['org_id'] = $user_data['user_id'];
+        $this->_insert_transaction($data);
+
+        if ($type_from == 'Cash-in-hand' || $type_from == 'Loan' || $type_from == 'Asset' || $type_from == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] - $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+
+        if ($type_to == 'Cash-in-hand' || $type_to == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+        elseif ($type_to == 'Salary' || $type_to == 'Loan' || $type_to == 'Asset') {
+            $cash = $this->_get_account_balance($type_to)->result_array();
+            $cash['paid'] = $cash[0]['paid'] + $data['amount'];
+            $cash['paid'] = $cash[0]['opening_balance'] - $cash['paid'];
+            $this->_update_cash($type_from,$data);
+        }
+
+        $this->session->set_flashdata('message', 'account'.' '.DATA_SAVED);                 
+        $this->session->set_flashdata('status', 'success');
+        redirect(ADMIN_BASE_URL . 'account/transaction');
+    }
+
+    function journal_voucher() {
+        $account = $this->_get('id desc')->result_array();
+        $data['account'] = $account;
+        $data['view_file'] = 'journal_voucher';
+        $this->load->module('template');
+        $this->template->admin($data);
+    }
+
+    function submit_journal_voucher() {
+        $account_from = $this->input->post('account_from');
+        if (isset($account_from) && !empty($account_from)) {
+            $account_from2=explode(',', $account_from);
+            $data['account_from_id'] = $account_from2[0];
+            $data['account_from_name'] = $account_from2[1];
+            $type_from = $account_from2[2];
+        }
+
+        $account_to = $this->input->post('account_to');
+        if (isset($account_to) && !empty($account_to)) {
+            $account_to2=explode(',', $account_to);
+            $data['account_to_id'] = $account_to2[0];
+            $data['account_to_name'] = $account_to2[1];
+            $type_to = $account_to2[2];
+        }
+        $data['amount'] = $this->input->post('amount');
+        $data['transaction_type'] ='JV';
+        $data['comment'] = $this->input->post('comment');
+        $data['ref_no'] = $this->input->post('ref_no');
+        $data['date'] = date('Y-m-d');
+        $user_data = $this->session->userdata('user_data');
+        $data['org_id'] = $user_data['user_id'];
+        $this->_insert_transaction($data);
+
+        if ($type_from == 'Cash-in-hand' || $type_from == 'Loan' || $type_from == 'Asset' || $type_from == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] - $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+
+        if ($type_to == 'Cash-in-hand' || $type_to == 'Bank') {
+            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
+            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data['amount'];
+            $this->_update_cash_in_hand($cash);
+        }
+        elseif ($type_to == 'Salary' || $type_to == 'Loan' || $type_to == 'Asset') {
+            $cash = $this->_get_account_balance($type_to)->result_array();
+            $cash['paid'] = $cash[0]['paid'] + $data['amount'];
+            $cash['paid'] = $cash[0]['opening_balance'] - $cash['paid'];
+            $this->_update_cash($type_from,$data);
+        }
+
+        $this->session->set_flashdata('message', 'account'.' '.DATA_SAVED);                 
+        $this->session->set_flashdata('status', 'success');
+        redirect(ADMIN_BASE_URL . 'account/transaction');
     }
 
     function cash_payment() {
@@ -91,6 +299,7 @@ class Account extends MX_Controller
             $data['account_to_name'] = $account_to2[1];
         }
         $data['amount'] = $this->input->post('amount');
+        $data['transaction_type'] ='CP';
         $data['comment'] = $this->input->post('comment');
         $data['ref_no'] = $this->input->post('ref_no');
         $data['date'] = date('Y-m-d');
@@ -145,6 +354,7 @@ class Account extends MX_Controller
             $type_to = $account_to2[2];
         }
         $data['amount'] = $this->input->post('amount');
+        $data['transaction_type'] ='CR';
         $data['comment'] = $this->input->post('comment');
         $data['ref_no'] = $this->input->post('ref_no');
         $data['date'] = date('Y-m-d');
@@ -175,53 +385,6 @@ class Account extends MX_Controller
         $data['view_file'] = 'transaction_list';
         $this->load->module('template');
         $this->template->admin($data);
-    }
-
-    function submit_transaction() {
-        $account_from = $this->input->post('account_from');
-        if (isset($account_from) && !empty($account_from)) {
-            $account_from2=explode(',', $account_from);
-            $data['account_from_id'] = $account_from2[0];
-            $data['account_from_name'] = $account_from2[1];
-            $type_from = $account_from2[2];
-        }
-
-        $account_to = $this->input->post('account_to');
-        if (isset($account_to) && !empty($account_to)) {
-            $account_to2=explode(',', $account_to);
-            $data['account_to_id'] = $account_to2[0];
-            $data['account_to_name'] = $account_to2[1];
-            $type_to = $account_to2[2];
-        }
-        $data['amount'] = $this->input->post('amount');
-        $data['comment'] = $this->input->post('comment');
-        $data['ref_no'] = $this->input->post('ref_no');
-        $data['date'] = date('Y-m-d');
-        $user_data = $this->session->userdata('user_data');
-        $data['org_id'] = $user_data['user_id'];
-        $this->_insert_transaction($data);
-
-        if ($type_from == 'Cash-in-hand' || $type_from == 'Loan' || $type_from == 'Asset' || $type_from == 'Bank') {
-            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
-            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] - $data['amount'];
-            $this->_update_cash_in_hand($cash);
-        }
-
-        if ($type_to == 'Cash-in-hand' || $type_to == 'Bank') {
-            $cash_in_hand = $this->_get_cash_in_hand()->result_array();
-            $cash['opening_balance'] = $cash_in_hand[0]['opening_balance'] + $data['amount'];
-            $this->_update_cash_in_hand($cash);
-        }
-        elseif ($type_to == 'Salary' || $type_to == 'Loan' || $type_to == 'Asset') {
-            $cash = $this->_get_account_balance($type_to)->result_array();
-            $cash['paid'] = $cash[0]['paid'] + $data['amount'];
-            $cash['paid'] = $cash[0]['opening_balance'] - $cash['paid'];
-            $this->_update_cash($type_from,$data);
-        }
-
-        $this->session->set_flashdata('message', 'account'.' '.DATA_SAVED);                 
-        $this->session->set_flashdata('status', 'success');
-        redirect(ADMIN_BASE_URL . 'account/transaction');
     }
     
 
