@@ -80,19 +80,31 @@
   <div class="row">&nbsp;</div>
   <div class="row">&nbsp;</div>
   <div class="row">&nbsp;</div>
+  <div class="row">
+    <div class="col-md-4">
+      <b>Vehicle No: <?=$invoice[0]['vehicle_no']?></b>
+    </div>
+    <div class="col-md-4">
+      <b>Gate Pass No: <?=$invoice[0]['gate_pass_no']?></b> 
+    </div>
+    <div class="col-md-4">
+      <b>Total Bags: <?=$invoice[0]['bags']?></b>
+    </div>
+  </div>
+  <hr>
 <table width="100%">
   <thead align="center">
     <th colspan="1" class="border1">Item Code</th>
     <th colspan="1" class="border1">Description</th>
     <th colspan="1" class="border1">Unit Price</th>
-    <th colspan="1" class="border1">Qty</th>
+    <th colspan="1" class="border1">Net Weight</th>
     <th colspan="1" class="border1" style="border-right: 1px solid black">Amount</th>
   </thead>
   <tbody>
   <?php foreach ($invoice as $key => $value) { ?>
     <tr style="text-align: center;">
       <td colspan="1" class="border1"> <?php echo 'PR -'.$value['product_id'];?></td>
-      <td colspan="1" class="border1"> <?php echo $value['product_name'].' - '.$value['p_c_name'].'- Bardana '.$value['bardana']. ' - Allowance '.$value['allowance'];?></td>
+      <td colspan="1" class="border1"> <?php echo $value['product_name'].' - '.$value['p_c_name'] ?><br><?php echo 'Gross Weight '.$value['gross']. ' - Bardana '.$value['bardana']. ' - Allowance '.$value['allowance'];?></td>
       <td colspan="1" class="border1"> <?php echo $value['sale_price'];?></td>
       <td colspan="1" class="border1"> <?php echo $value['qty'];?></td>
       <td colspan="1" class="border1" style="border-right: 1px solid black"> <?php echo $value['amount'];?></td>

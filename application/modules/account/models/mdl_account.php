@@ -124,4 +124,24 @@ class Mdl_account extends CI_Model {
         $this->db->where('org_id',$org_id);
         $this->db->update($table, $data);
     }
+
+    function _update_account_balance($id,$type,$data){
+        $user_data = $this->session->userdata('user_data');
+        $org_id = $user_data['user_id'];
+        $table = $this->get_table();
+        $this->db->where('type',$type);
+        $this->db->where('id',$id);
+        $this->db->where('org_id',$org_id);
+        $this->db->update($table, $data);
+    }
+
+    function _get_account($id,$type){
+        $user_data = $this->session->userdata('user_data');
+        $org_id = $user_data['user_id'];
+        $table = $this->get_table();
+        $this->db->where('type',$type);
+        $this->db->where('id',$id);
+        $this->db->where('org_id',$org_id);
+        return $this->db->get($table);
+    }
 }
