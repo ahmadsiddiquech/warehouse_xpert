@@ -37,7 +37,7 @@
                 <li class="<?php if($curr_url == 'account'){echo 'active';}    ?>">
                   <a href="<?php $controller='account';
                     echo ADMIN_BASE_URL . $controller ?>">
-                    <em class="fa fa-file-text-o"></em>
+                    <em class="fa fa-file-o"></em>
                     <span>View Account</span>
                   </a>
                 </li>
@@ -146,12 +146,12 @@
                 <li class="<?php if($curr_url == 'account/transaction_list'){echo 'active';}    ?>">
                   <a href="<?php $controller='account/transaction_list';
                     echo ADMIN_BASE_URL . $controller ?>">
-                    <em class="fa fa-plus-square"></em>
+                    <em class="fa fa-file-text-o"></em>
                     <span>Transaction Report</span>
                   </a>
                 </li>
-                <li class="<?php if($curr_url == 'report'){echo 'active';}    ?>">
-                  <a href="<?php $controller='report';
+                <li class="<?php if($curr_url == 'report/general_ledger'){echo 'active';}    ?>">
+                  <a href="<?php $controller='report/general_ledger';
                     echo ADMIN_BASE_URL . $controller ?>">
                     <em class="fa fa-file-text-o"></em>
                     <span>General Ledger</span>
@@ -160,14 +160,14 @@
                 <li class="<?php if($curr_url == 'report/full_report'){echo 'active';}    ?>">
                   <a href="<?php $controller='report/full_report';
                     echo ADMIN_BASE_URL . $controller ?>">
-                    <em class="fa fa-files-o"></em>
+                    <em class="fa fa-file-text-o"></em>
                     <span>Full Report</span>
                   </a>
                 </li>
                 <li class="<?php if($curr_url == 'report/income_statement'){echo 'active';}    ?>">
                   <a href="<?php $controller='report/income_statement';
                     echo ADMIN_BASE_URL . $controller ?>">
-                    <em class="fa fa-file-archive-o"></em>
+                    <em class="fa fa-file-text-o"></em>
                     <span>Income Statement</span>
                   </a>
                 </li>
