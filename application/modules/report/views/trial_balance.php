@@ -5,9 +5,9 @@
       <h3>
         <?php 
         if (empty($update_id)) 
-                    $strTitle = 'Company Report';
+                    $strTitle = 'Trial Balance';
                 else 
-                    $strTitle = 'Company Report';
+                    $strTitle = 'Trial Balance';
                     echo $strTitle;
                     ?>
        </h3>             
@@ -33,9 +33,9 @@
                             
                         }
                         if (isset($hidden) && !empty($hidden))
-                            echo form_open_multipart(ADMIN_BASE_URL . 'report/submit_full_report/' . $update_id, $attributes, $hidden);
+                            echo form_open_multipart(ADMIN_BASE_URL . 'report/submit_trial_balance/' . $update_id, $attributes, $hidden);
                         else
-                            echo form_open_multipart(ADMIN_BASE_URL . 'report/submit_full_report', $attributes);
+                            echo form_open_multipart(ADMIN_BASE_URL . 'report/submit_trial_balance', $attributes);
                         ?>
                   <div class="form-body">
 
@@ -106,24 +106,3 @@
 </div>
 </div>
 </div>
-
-
-<script>
-$(document).ready(function(){
-
-$("#return_type").change(function () {
-    var return_type = this.value;
-   $.ajax({
-        type: 'POST',
-        url: "<?php echo ADMIN_BASE_URL?>stock_return/get_returnee",
-        data: {'return_type': return_type },
-        async: false,
-        success: function(result) {
-        $("#returnee").html(result);
-      }
-    });
-});
-
-});
-             
-</script>

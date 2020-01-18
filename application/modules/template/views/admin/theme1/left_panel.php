@@ -157,11 +157,11 @@
                     <span>General Ledger</span>
                   </a>
                 </li>
-                <li class="<?php if($curr_url == 'report/full_report'){echo 'active';}    ?>">
-                  <a href="<?php $controller='report/full_report';
+                <li class="<?php if($curr_url == 'report/trial_balance'){echo 'active';}    ?>">
+                  <a href="<?php $controller='report/trial_balance';
                     echo ADMIN_BASE_URL . $controller ?>">
                     <em class="fa fa-file-text-o"></em>
-                    <span>Full Report</span>
+                    <span>Trial Balance</span>
                   </a>
                 </li>
                 <li class="<?php if($curr_url == 'report/income_statement'){echo 'active';}    ?>">

@@ -107,15 +107,39 @@ class Report extends MX_Controller
         }
     }
 
-    function full_report() {
+    function trial_balance() {
         $update_id = $this->uri->segment(4);
-        $user_data = $this->session->userdata('user_data');
-        $org_id = $user_data['user_id'];
-        $data['news'] = $this->_get_data_from_post();
         $data['update_id'] = $update_id;
-        $data['view_file'] = 'full_report';
+        $data['view_file'] = 'trial_balance';
         $this->load->module('template');
         $this->template->admin($data);
+    }
+
+    function submit_trial_balance() {
+        $user_data = $this->session->userdata('user_data');
+        $data['org_id'] = $user_data['user_id'];
+        $data['from_date'] = $this->input->post('from');
+        $data['to_date'] = $this->input->post('to');
+        $data['org'] = $this->_get_org($data['org_id'])->result_array();
+
+        $whereType['type'] = 'Cash-in-hand';
+        
+        $data['cid'] = $this->_get_account_balance($whereType,$data)->result_array();
+
+        $data['customer'] = Modules::run('customer/_get','id desc')->result_array();
+        $data['supplier'] = Modules::run('supplier/_get','id desc')->result_array();
+        $data['expense'] = Modules::run('expense/_get','id desc')->result_array();
+
+        $whereType['type'] = 'Expense';
+        $data['account_expense'] = $this->_get_account_balance($whereType,$data)->result_array();
+
+        $whereType['type'] = 'Salary';
+        $data['salary'] = $this->_get_account_balance($whereType,$data)->result_array();
+
+        $whereType['type'] = 'Loan';
+        $data['loan'] = $this->_get_account_balance($whereType,$data)->result_array();
+        
+        $this->load->view('trial_balance_print',$data);
     }
 
     function print_report() {
@@ -190,23 +214,7 @@ class Report extends MX_Controller
     //     $this->load->view('invoice_list_print',$data);
     // }
 
-    function submit_full_report() {
-        $user_data = $this->session->userdata('user_data');
-        $data['org_id'] = $user_data['user_id'];
-        $data['from'] = $this->input->post('from');
-        $data['to'] = $this->input->post('to');
-        $data['org'] = $this->_get_org($data['org_id'])->result_array();
-
-        $data['sale_invoice'] = $this->_get_sale_invoice($data)->result_array();
-
-        $data['purchase_invoice'] = $this->_get_purchase_invoice($data)->result_array();
-        
-        $data['expense'] = $this->_get_expense($data)->result_array();
-        
-        $data['stock_return'] = $this->_get_stock_return($data)->result_array();
-        
-        $this->load->view('full_report_print',$data);
-    }
+    
 
     function submit_income_statement() {
         $user_data = $this->session->userdata('user_data');
@@ -276,5 +284,10 @@ class Report extends MX_Controller
     function _get_expense($data) {
         $this->load->model('mdl_report');
         return $this->mdl_report->_get_expense($data);
+    }
+
+    function _get_account_balance($whereType,$data){
+        $this->load->model('mdl_report');
+        return $this->mdl_report->_get_account_balance($whereType,$data);
     }
 }

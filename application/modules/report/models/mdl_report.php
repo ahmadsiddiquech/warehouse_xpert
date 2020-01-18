@@ -79,4 +79,11 @@ class Mdl_report extends CI_Model {
         $this->db->or_where('account_to_id',$data['account_id']);
         return $this->db->get($table);
     }
+
+    function _get_account_balance($whereType,$data){
+        $table = 'account';
+        $this->db->where('org_id',$data['org_id']);
+        $this->db->where($whereType);
+        return $this->db->get($table);
+    }
 }
