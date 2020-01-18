@@ -37,6 +37,7 @@
                             echo form_open_multipart(ADMIN_BASE_URL . 'supplier/submit/' . $update_id, $attributes, $hidden);
                         else
                             echo form_open_multipart(ADMIN_BASE_URL . 'supplier/submit/' . $update_id, $attributes);
+                          date_default_timezone_set("Asia/Karachi");
                         ?>
                   <div class="form-body">
                     
@@ -76,7 +77,7 @@
                                                         $attribute = array('class' => 'control-label col-md-4');
                                                         ?>
                                                         
-                          <?php echo form_label('City', 'city', $attribute); ?>
+                          <?php echo form_label('Address', 'city', $attribute); ?>
                           <div class="col-md-8"> <?php echo form_input($data); ?></div>
                         </div>
                       </div>
@@ -156,7 +157,7 @@
                                                         $attribute = array('class' => 'control-label col-md-4');
                                                         ?>
                                                         
-                          <?php echo form_label('Paid', 'paid', $attribute); ?>
+                          <?php echo form_label('Amount Paid', 'paid', $attribute); ?>
                           <div class="col-md-8"> <?php echo form_input($data); ?></div>
                         </div>
                       </div>

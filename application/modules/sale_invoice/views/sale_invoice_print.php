@@ -104,7 +104,7 @@
   <?php foreach ($invoice as $key => $value) { ?>
     <tr style="text-align: center;">
       <td colspan="1" class="border1"> <?php echo 'PR -'.$value['product_id'];?></td>
-      <td colspan="1" class="border1"> <?php echo $value['product_name'].' - '.$value['p_c_name'] ?><br><?php echo 'Gross Weight '.$value['gross']. ' - Bardana '.$value['bardana']. ' - Allowance '.$value['allowance'];?></td>
+      <td colspan="1" class="border1"> <?php echo $value['product_name'].' - '.$value['p_c_name'] ?><br><?php echo 'Gross Weight '.$value['gross']. ' - Bardana '.$value['product_bardana']. ' - Allowance '.$value['allowance'];?></td>
       <td colspan="1" class="border1"> <?php echo $value['sale_price'];?></td>
       <td colspan="1" class="border1"> <?php echo $value['qty'];?></td>
       <td colspan="1" class="border1" style="border-right: 1px solid black"> <?php echo $value['amount'];?></td>

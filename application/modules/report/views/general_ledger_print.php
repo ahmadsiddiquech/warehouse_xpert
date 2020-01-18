@@ -21,7 +21,7 @@
 <body class="container pt-5">
     <div class="row">
     <div class="col-md-3">
-      <img src="<?php echo STATIC_ADMIN_IMAGE.$invoice[0]['image']?>" height="100px;">
+      <img src="<?php echo STATIC_ADMIN_IMAGE.'logo.png'?>" height="100px;">
     </div>
     <div class="col-md-9">
       <h1 style="text-align: center;">
@@ -52,8 +52,11 @@
   <div class="row">
     <div class="col-md-9">
       <h4>
-        <?php if($type == 'customer' || $type == 'supplier'){?>
-          Address : <?=$invoice[1]['address'];?>
+        <?php if($type == 'customer' ){?>
+          <b>Address : </b><?php echo $invoice[1]['address']?>
+        <?php } 
+        elseif($type == 'supplier') {?>
+          <b>Address : </b><?php echo $invoice[1]['city']?>
         <?php } ?>
       </h4>
     </div>
@@ -65,10 +68,12 @@
     <div class="col-md-4">
       <h4>
         <?php if($type == 'customer' || $type == 'supplier'){?>
-          <b>Opening Balance : </b><?php echo $invoice[1]['total']?>
+          <b>Opening Balance : </b><?php echo $invoice[1]['remaining'];
+          $total = $invoice[1]['total']?>
         <?php } 
         else {?>
-          <b>Opening Balance : </b><?php echo $invoice[1]['opening_balance']?>
+          <b>Opening Balance : </b><?php echo $invoice[1]['opening_balance'];
+          $total = $invoice[1]['opening_balance']?>
         <?php } ?>
       </h4>
     </div>
@@ -77,22 +82,41 @@
   <p class="border_bottom"></p>
   <div class="row">
     <div class="col-md-2"><b>Date</b></div>
-    <div class="col-md-1"><b>Ref No</b></div>
-    <div class="col-md-5"><b>Description</b></div>
+    <div class="col-md-2"><b>Ref No</b></div>
+    <div class="col-md-4"><b>Description</b></div>
     <div class="col-md-1"><b>Debit</b></div>
     <div class="col-md-1"><b>Credit</b></div>
     <div class="col-md-2"><b>Balance</b></div>
   </div>
   <p class="border_bottom"></p>
   <?php foreach ($report as $key => $value) {
-$total = $total + $value['remaining'];
+if (isset($value['amount'])) {
+  $total = $total - $value['remaining'];
+}
+else{
+  $total = $total + $value['remaining'];
+}
     ?>
   <div class="row">
     <div class="col-md-2"><?=$value['date']?></div>
-    <div class="col-md-1">SLI - <?=$value['id']?></div>
-    <div class="col-md-5">Sale Invoice - G.W <?=$value['gross']?> - Bardana - <?=$value['bardana']?> - N.W - <?=$value['qty']?></div>
-    <div class="col-md-1"><?php if($type == 'customer') echo $value['remaining'] ?></div>
-    <div class="col-md-1"><?php if($type == 'supplier') echo $value['remaining'] ?></div>
+    <?php if (isset($value['amount'])) {?>
+      <div class="col-md-2"><?=$value['transaction_type'].' - '.$value['id']?></div>
+      <div class="col-md-4"><b><?='From - '.$value['account_from_name'].' - To - '.$value['account_to_name']?></b></div>
+    <?php } elseif($type == 'customer') { ?>
+      <div class="col-md-2">SI - <?=$value['id']?></div>
+      <div class="col-md-4"><b>Sale Invoice</b></div>
+      <?php } elseif($type == 'supplier') { ?>
+        <div class="col-md-2">PI - <?=$value['id']?></div>
+      <div class="col-md-4"><b>Purchase Invoice</b></div>
+      <?php } ?>
+    <?php if($type == 'customer' && empty($value['amount']) || $type=='supplier' && isset($value['account_from_name'])) { ?>
+      <div class="col-md-1"><?php echo $value['remaining'] ?></div>
+      <div class="col-md-1"></div>
+    <?php } elseif($type == 'supplier' || isset($value['amount'])) {?>
+      <div class="col-md-1"></div>
+      <div class="col-md-1"><?php echo $value['remaining'] ?></div>
+    <?php } ?>
+    
     <div class="col-md-2"><?=$total ?></div>
   </div>
   <p class="border_bottom"></p>

@@ -34,6 +34,7 @@
                             echo form_open_multipart(ADMIN_BASE_URL . 'account/submit_journal_voucher/' . $update_id, $attributes, $hidden);
                         else
                             echo form_open_multipart(ADMIN_BASE_URL . 'account/submit_journal_voucher/' . $update_id, $attributes);
+                          date_default_timezone_set("Asia/Karachi");
                         ?>
                   <div class="form-body">
                     
@@ -63,9 +64,8 @@
                                                         'name' => 'date',
                                                         'id' => 'date',
                                                         'class' => 'form-control',
-                                                        'type' => 'date',
+                                                        'type' => 'datetime-local',
                                                         'tabindex' => '2',
-                                                        'value' => date('Y-m-d'),
                                                         'data-parsley-maxlength'=>TEXT_BOX_RANGE
                                                         );
                                                         $attribute = array('class' => 'control-label col-md-4');
@@ -88,7 +88,9 @@
                               <?php if(isset($account) && !empty($account))
                               foreach ($account as $key => $value):?>
                                 
-                                <option value="<?php echo $value['id'].','.$value['name'].','.$value['type'] ?>"><?php echo $value['name'].' - '.$value['type'];?></option>
+                                <option value="<?php echo $value['id'].','.$value['name'].','.$value['type'] ?>"><?php echo $value['name']?> <?php if ($value['type'] == 'supplier') {
+                                  echo ' - '.$value['company_name'];
+                                } ?> <?php echo ' - '.$value['type'];?></option>
                               <?php endforeach; ?>
                             </select>
                             </div>
@@ -125,7 +127,9 @@
                                 <option value=""></option>
                               <?php if(isset($account) && !empty($account))
                               foreach ($account as $key => $value):?>
-                                <option value="<?php echo $value['id'].','.$value['name'].','.$value['type'] ?>"><?php echo $value['name'].' - '.$value['type'];?></option>
+                                <option value="<?php echo $value['id'].','.$value['name'].','.$value['type'] ?>"><?php echo $value['name']?> <?php if ($value['type'] == 'supplier') {
+                                  echo ' - '.$value['company_name'];
+                                } ?> <?php echo ' - '.$value['type'];?></option>
                               <?php endforeach; ?>
                             </select>
                             </div>
@@ -200,6 +204,7 @@
 
 <script>
   $(document).ready(function() {
+      document.getElementById("date").defaultValue = "<?php echo date('Y-m-d').'T'.date('H:i:s')?>";
       $(".chosen").chosen();
   });
 </script>

@@ -11,7 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!-- <a target="_blank" href="<?php echo ADMIN_BASE_URL . 'supplier/invoice_list_print/'.$supplier_id; ?>"><button type="button" class="btn btn-primary"><i class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;Print All</button></a> -->
-                    <table id="" class="table table-striped table-hover table-body">
+                    <table id="datatable1" class="table table-striped table-hover table-body">
                         <thead class="bg-th">
                         <tr class="bg-col">
                         <th class="sr">ID</th>
@@ -29,19 +29,21 @@
                                 foreach ($news->result() as
                                         $new) {
                                     $i++;
+                                // print_r($news);exit();
                                     ?>
                                 <tr id="Row_<?=$new->id?>" class="odd gradeX " >
                                     <td width='2%'><?php echo $new->id ?></td>
                                     <td><?php echo $new->type ?></td>
                                     <td><?php echo $new->name ?></td>
                                     <td><?php echo $new->date ?></td>
-                                    <? if ($new->type == 'Cash-in-hand' || $new->type == 'Bank' || $new->type == 'Asset') { ?>
+                                    <? if ($new->type == 'Cash-in-hand' || $new->type == 'Bank' || $new->type == 'Asset' ) { ?>
                                         <td>0</td>
                                         <td><?php echo $new->opening_balance ?></td>
                                     <?php } 
-                                        elseif ($new->type == 'Salary' || $new->type == 'Invester' || $new->type == 'Loan') { ?>
+                                        elseif ($new->type == 'Salary' || $new->type == 'Invester' || $new->type == 'Loan' || $new->type == 'Commission' || $new->type == 'Expense') { ?>
                                             <td><?php echo $new->remaining ?></td>
                                             <td><?php echo $new->paid ?></td>
+
                                     <?php } ?>
                                 </tr>
                                 <?php } ?>    

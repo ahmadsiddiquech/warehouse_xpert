@@ -137,7 +137,7 @@
                                                         $attribute = array('class' => 'control-label col-md-4');
                                                         ?>
                                                         
-                          <?php echo form_label('Received', 'paid', $attribute); ?>
+                          <?php echo form_label('Amount Received', 'paid', $attribute); ?>
                           <div class="col-md-8"> <?php echo form_input($data); ?> </div>
                         </div>
                       </div>

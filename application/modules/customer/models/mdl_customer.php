@@ -14,11 +14,6 @@ class Mdl_customer extends CI_Model {
         return $table;
     }
 
-    function insert_import($data)
-    {
-        $this->db->insert_batch('customer', $data);
-    }
-
     function _get_by_arr_id($arr_col) {
         $table = $this->get_table();
         $user_data = $this->session->userdata('user_data');

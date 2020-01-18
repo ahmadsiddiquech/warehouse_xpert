@@ -244,6 +244,7 @@ class sale_invoice extends MX_Controller
         $gross_weight = $this->input->post('sale_gross_weight');
         $bardana = $this->input->post('sale_bardana');
         $allowance = $this->input->post('sale_allowance');
+        $sale_price = $this->input->post('sale_price');
         $sale_qty = $this->input->post('sale_qty');
         $sale_amount = $this->input->post('sale_amount');
         $counter = 0;
@@ -265,7 +266,7 @@ class sale_invoice extends MX_Controller
                     $data['p_c_name'] = $value1['p_c_name'];
                     $data['s_c_id'] = $value1['s_c_id'];
                     $data['s_c_name'] = $value1['s_c_name'];
-                    $data['sale_price'] = $value1['sale_price'];
+                    $data['sale_price'] = $sale_price[$counter];
                     $data['gross'] = $gross_weight[$counter];
                     $data['bardana'] = $bardana[$counter];
                     $data['allowance'] = $allowance[$counter];

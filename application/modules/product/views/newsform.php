@@ -89,7 +89,7 @@
                               <label>Parent Category</label>
                             </div>
                             <div class="col-md-8">
-                              <select name="parent_category" id="parent_category" class="form-control chosen" tabindex="3">
+                              <select name="parent_category chosen" id="parent_category" class="form-control chosen" tabindex="3">
                               <option value=""></option>
                               <?php if(isset($category) && !empty($category))
                               foreach ($category as $key => $value):?>
@@ -196,25 +196,6 @@
                         <div class="form-group">
                           <?php
                               $data = array(
-                              'name' => 'scale',
-                              'id' => 'scale',
-                              'class' => 'form-control',
-                              'type' => 'text',
-                              'tabindex' => '9',
-                              'required' => 'required',
-                              'value' => $news['scale'],
-                              'data-parsley-maxlength'=>TEXT_BOX_RANGE
-                              );
-                              $attribute = array('class' => 'control-label col-md-4');
-                              ?>
-                          <?php echo form_label('Scale/kg<span style="color:red;">*</span>', 'scale', $attribute); ?>
-                          <div class="col-md-8"> <?php echo form_input($data); ?></div>
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-group">
-                          <?php
-                              $data = array(
                               'name' => 'sale_discount',
                               'id' => 'sale_discount',
                               'class' => 'form-control',
@@ -229,8 +210,6 @@
                           <div class="col-md-8"> <?php echo form_input($data); ?></div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-sm-5">
                         <div class="form-group">
                           <?php
