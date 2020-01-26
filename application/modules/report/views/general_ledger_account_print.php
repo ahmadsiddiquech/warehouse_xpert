@@ -84,7 +84,7 @@
   <div class="row">
     <div class="col-md-2"><?=$value['date']?></div>
       <div class="col-md-2"><?=$value['transaction_type'].' - '.$value['id']?></div>
-      <div class="col-md-4"><b><?='From - '.$value['account_from_name'].'('.$value['account_from_type'].')'.' - To - '.$value['account_to_name'].'('.$value['account_to_type'].')'?></b></div>
+      <div class="col-md-4"><b><?='Ref No - '.$value['ref_no'].' - '.$value['from_comment'].')'.' - To - '.$value['account_to_name'].'('.$value['account_to_type'].') - '.$value['to_comment']?></b></div>
       <?php if ($value['transaction_type'] == 'CR' || $value['transaction_type'] == 'BR') { ?>
         <div class="col-md-1"><?=$value['remaining']?></div>
         <div class="col-md-1"></div>

@@ -1,5 +1,12 @@
+<!-- Page content-->
 <div class="content-wrapper">
-    <h3>Transaction</h3>
+    <h3>
+        <?php 
+    $urlPath = $this->uri->segment(5);
+    $customer_id = $this->uri->segment(6);
+    echo ucwords(str_replace('%20',' ',$urlPath));
+    ?>
+    <a href="<?php echo ADMIN_BASE_URL . 'supplier/invoice_list/'.$customer_id.'/'.$urlPath; ?>"><button type="button" class="btn btn-lg btn-primary pull-right"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;&nbsp;<b>Back</b></button></a></h3>
     <div class="container-fluid">
         <!-- START DATATABLE 1 -->
         <div class="row">
@@ -10,14 +17,11 @@
                         <thead class="bg-th">
                         <tr class="bg-col">
                         <th class="sr">S.No</th>
-                        <th>Ref No</th>
-                        <th>Transaction From</th>
-                        <th>Comment</th>
-                        <th>Trasaction To</th>
-                        <th>Comment</th>
-                        <th>Transaction Type</th>
-                        <th>Amount</th>
-                        <th>Date</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Unit Price</th>
+                        <th>Qty</th>
+                        <th>Total Price</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,16 +32,13 @@
                                         $new) {
                                     $i++;
                                     ?>
-                                    <tr id="Row_<?=$new->id?>" class="odd gradeX " >
+                                <tr id="Row_<?=$new->id?>" class="odd gradeX " >
                                     <td width='2%'><?php echo $i;?></td>
-                                    <td><?php echo wordwrap($new->ref_no)  ?></td>
-                                    <td><?php echo wordwrap($new->account_from_name)  ?></td>
-                                    <td><?php echo wordwrap($new->from_comment)  ?></td>
-                                    <td><?php echo wordwrap($new->account_to_name)  ?></td>
-                                    <td><?php echo wordwrap($new->to_comment)  ?></td>
-                                    <td><?php echo wordwrap($new->transaction_type)  ?></td>
-                                    <td><?php echo wordwrap($new->amount)  ?></td>
-                                    <td><?php echo wordwrap($new->date)  ?></td>
+                                    <td><?php echo wordwrap($new->product_name) ?></td>
+                                    <td><?php echo wordwrap($new->p_c_name) ?></td>
+                                    <td><?php echo wordwrap($new->sale_price) ?></td>
+                                    <td><?php echo wordwrap($new->qty) ?></td>
+                                    <td><?php echo wordwrap($new->amount) ?></td>
                                 </tr>
                                 <?php } ?>    
                             <?php } ?>
@@ -47,5 +48,6 @@
                 </div>
             </div>
         </div>
+    <!-- END DATATABLE 1 -->
     </div>
-</div>
+</div>    

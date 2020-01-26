@@ -130,6 +130,7 @@ class sale_invoice extends MX_Controller
             $data['customer_id'] = 0;
             $data['customer_name'] = 'walk-in';
         }
+        $data['date'] = $this->input->post('date');
         $data['vehicle_no'] = $this->input->post('vehicle_no');
         $data['remarks'] = $this->input->post('remarks');
         $data['gate_pass_no'] = $this->input->post('gate_pass_no');
